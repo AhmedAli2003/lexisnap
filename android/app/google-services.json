@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "366294231901",
+    "project_id": "ecommerece-b4fe8",
+    "storage_bucket": "ecommerece-b4fe8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366294231901:android:ec92e56f5ed9cb623656b4",
+        "android_client_info": {
+          "package_name": "com.ackerman.lexisnap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366294231901-1a0jleefumeckgna91e985jamuc1r18q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ackerman.lexisnap",
+            "certificate_hash": "4228cd3b10708179d561d966300f67db51707b94"
+          }
+        },
+        {
+          "client_id": "366294231901-ecb07m7eb6hporp4i9sgstdg8pmfe6mu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6Ldth7AtinyDI8aOn9A3Q1DV-rau5-24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366294231901-ecb07m7eb6hporp4i9sgstdg8pmfe6mu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ackerman.lexisnap"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
