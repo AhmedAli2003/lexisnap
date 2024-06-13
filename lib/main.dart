@@ -21,5 +21,5 @@ void main() async {
       child: const App(),
     ),
   );
-  setSystemUIStyle();
+  setSystemUIStyle(Brightness.light);
 }

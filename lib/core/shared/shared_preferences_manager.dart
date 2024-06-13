@@ -18,11 +18,7 @@ class SharedPreferencesManager {
 
   String getAccessToken() {
     final accessToken = _sharedPreferences.getString('ACCESS_TOKEN');
-    if (accessToken == null) {
-      //TODO: You must sign in
-      throw Exception();
-    }
-    return accessToken;
+    return accessToken ?? '';
   }
 
   Future<bool> saveExpirationDate(String expiredIn) async {

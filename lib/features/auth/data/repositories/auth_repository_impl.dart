@@ -57,15 +57,16 @@ class AuthRepositoryImpl implements AuthRepository {
         throw ServerException(message: authApiResponse.message!);
       }
 
-      // Save the access token and the expiration time
-      _ref.read(sharedPrefProvider).saveAccessToken(authApiResponse.accessToken);
-      _ref.read(sharedPrefProvider).saveExpirationDate(authApiResponse.expiresIn);
+      if (_ref.read(sharedPrefProvider).getAccessToken() == authApiResponse.accessToken) {
+        // Save the access token and the expiration time
+        await _ref.read(sharedPrefProvider).saveAccessToken(authApiResponse.accessToken);
+        await _ref.read(sharedPrefProvider).saveExpirationDate(authApiResponse.expiresIn);
+      }
 
       return Right(authApiResponse.data!.toDomain());
     } on AppException catch (e) {
       return Left(Failure(e));
-    } catch (e, s) {
-      print(s);
+    } catch (e) {
       return Left(Failure.fromException(e));
     }
   }
@@ -99,15 +100,16 @@ class AuthRepositoryImpl implements AuthRepository {
         throw ServerException(message: authApiResponse.message!);
       }
 
-      // Save the access token and the expiration time
-      _ref.read(sharedPrefProvider).saveAccessToken(authApiResponse.accessToken);
-      _ref.read(sharedPrefProvider).saveExpirationDate(authApiResponse.expiresIn);
+      if (_ref.read(sharedPrefProvider).getAccessToken() == authApiResponse.accessToken) {
+        // Save the access token and the expiration time
+        await _ref.read(sharedPrefProvider).saveAccessToken(authApiResponse.accessToken);
+        await _ref.read(sharedPrefProvider).saveExpirationDate(authApiResponse.expiresIn);
+      }
 
       return Right(authApiResponse.data!.toDomain());
     } on AppException catch (e) {
       return Left(Failure(e));
-    } catch (e, s) {
-      print(s);
+    } catch (e) {
       return Left(Failure.fromException(e));
     }
   }

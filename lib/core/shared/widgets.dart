@@ -17,13 +17,14 @@ class ErrorText extends StatelessWidget {
 }
 
 class Loading extends StatelessWidget {
-  const Loading({super.key});
+  final Color color;
+  const Loading({super.key, this.color = Colors.white});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: CircularProgressIndicator(
-        color: Colors.purple,
+        color: color,
       ),
     );
   }

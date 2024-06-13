@@ -32,3 +32,7 @@ class UnknownFirebaseException extends AppException {
     super.code,
   });
 }
+
+class CouldNotMappingException extends AppException {
+  const CouldNotMappingException({required super.message});
+}

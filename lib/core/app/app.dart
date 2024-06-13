@@ -1,14 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/core/constants/app_constants.dart';
+import 'package:lexisnap/core/router/app_router.dart';
 import 'package:lexisnap/core/shared/shared_preferences_manager.dart';
-import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_theme.dart';
 import 'package:lexisnap/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:lexisnap/features/auth/presentation/pages/auth_page.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -16,11 +13,12 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     checkAccessToken(ref);
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Lexisnap',
       theme: AppTheme.light,
-      home: const AuthGuard(),
+      // home: const AuthGuard(),
+      routerConfig: ref.watch(routerProvider).router,
     );
   }
 
@@ -32,57 +30,10 @@ class App extends ConsumerWidget {
   }
 }
 
-class AuthGuard extends ConsumerStatefulWidget {
-  const AuthGuard({super.key});
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AuthGuardState();
-}
-
-class _AuthGuardState extends ConsumerState<AuthGuard> {
-  void getUserIfAuthenticated() async {
-    final user = ref.read(authStateChangeProvider).value;
-    if (user != null) {
-      await ref.read(authControllerProvider.notifier).getUserFromBackend(context, user);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      getUserIfAuthenticated();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final appUser = ref.watch(userProvider);
-    return ref.watch(authStateChangeProvider).when(
-          data: (user) {
-            if (user == null) {
-              return const AuthPage();
-            }
-            if (appUser == null) {
-              return const Scaffold(
-                body: Center(
-                  child: FlutterLogo(size: 64),
-                ),
-              );
-            }
-            return const HomePage();
-          },
-          error: (error, _) => const Scaffold(
-            body: Text('Error'),
-          ),
-          loading: () => const Scaffold(
-            body: Loading(),
-          ),
-        );
-  }
-}
-
 class HomePage extends ConsumerWidget {
+  static const String path = '/home';
+  static const String name = 'Home-Page';
+
   const HomePage({super.key});
 
   @override
