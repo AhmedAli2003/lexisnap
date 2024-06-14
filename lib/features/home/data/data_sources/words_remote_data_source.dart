@@ -33,7 +33,7 @@ abstract class WordsRemoteDataSource {
     @Header(AppUrls.authorization) required String accessToken,
   });
 
-  @GET('/:id')
+  @GET('/{id}')
   Future<ApiResponse<WordModel>> getWordById({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
@@ -45,15 +45,15 @@ abstract class WordsRemoteDataSource {
     @Body() required CreateWordRequest word,
   });
 
-  @PUT('/:id')
+  @PUT('/{id}')
   Future<ApiResponse<WordModel>> updateWord({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
     @Body() required UpdateWordRequest word,
   });
 
-  @DELETE('/:id')
-  Future<ApiResponse> deleteWord({
+  @DELETE('/{id}')
+  Future<HttpResponse<void>> deleteWord({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
   });

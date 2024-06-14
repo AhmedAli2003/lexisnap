@@ -9,8 +9,8 @@ part of 'update_statement_request.dart';
 UpdateStatementRequest _$UpdateStatementRequestFromJson(
         Map<String, dynamic> json) =>
     UpdateStatementRequest(
-      text: json['text'] as String,
-      translation: json['translation'] as String,
+      text: json['text'] as String? ?? '',
+      translation: json['translation'] as String? ?? '',
     );
 
 Map<String, dynamic> _$UpdateStatementRequestToJson(

@@ -5,7 +5,7 @@ part 'update_word_request.g.dart';
 @JsonSerializable()
 class UpdateWordRequest {
   final String word;
-  final String? note;
+  final String note;
   final List<String> definitions;
   final List<String> translations;
   final List<String> tags;
@@ -15,7 +15,7 @@ class UpdateWordRequest {
 
   const UpdateWordRequest({
     required this.word,
-    this.note,
+    required this.note,
     required this.definitions,
     required this.translations,
     required this.tags,

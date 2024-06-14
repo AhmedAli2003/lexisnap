@@ -11,7 +11,7 @@ CreateStatementRequest _$CreateStatementRequestFromJson(
     CreateStatementRequest(
       text: json['text'] as String,
       word: json['word'] as String,
-      translation: json['translation'] as String,
+      translation: json['translation'] as String? ?? '',
     );
 
 Map<String, dynamic> _$CreateStatementRequestToJson(

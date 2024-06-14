@@ -3,6 +3,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:lexisnap/core/errors/exceptions.dart';
 import 'package:lexisnap/core/errors/failure.dart';
 import 'package:lexisnap/core/mappers/statement_mappers.dart';
+import 'package:lexisnap/core/models/create_statement_request.dart';
+import 'package:lexisnap/core/models/update_statement_request.dart';
 import 'package:lexisnap/core/shared/shared_preferences_manager.dart';
 import 'package:lexisnap/features/home/data/data_sources/statements_remote_data_source.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
@@ -26,12 +28,12 @@ class StatementRepositoryImpl implements StatementRepository {
         _dataSource = dataSource;
 
   @override
-  Future<Either<Failure, Statement>> createStatement(Statement statement) async {
+  Future<Either<Failure, Statement>> createStatement(CreateStatementRequest statement) async {
     try {
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.createStatement(
         accessToken: accessToken,
-        statement: statement.toModel(),
+        statement: statement,
       );
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
@@ -52,8 +54,8 @@ class StatementRepositoryImpl implements StatementRepository {
         accessToken: accessToken,
         id: id,
       );
-      if (!response.success) {
-        throw ServerException(message: response.message!);
+      if (response.response.statusCode != 204) {
+        throw const ServerException(message: 'Could not delete statement, try again');
       }
       return const Right(unit);
     } on ServerException catch (e) {
@@ -64,14 +66,30 @@ class StatementRepositoryImpl implements StatementRepository {
   }
 
   @override
-  Future<Either<Failure, Statement>> updateStatement(Statement statement) async {
+  Future<Either<Failure, Statement>> updateStatement(String id, UpdateStatementRequest statement) async {
     try {
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.updateStatement(
-        id: statement.id,
+        id: id,
         accessToken: accessToken,
-        statement: statement.toModel(),
+        statement: statement,
       );
+      if (!response.success || response.data == null) {
+        throw ServerException(message: response.message!);
+      }
+      return Right(response.data!.toEntity());
+    } on ServerException catch (e) {
+      return Left(Failure(e));
+    } catch (e) {
+      return Left(Failure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Statement>> getStatementById(String id) async {
+    try {
+      final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
+      final response = await _dataSource.getStatementById(id: id, accessToken: accessToken);
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
       }

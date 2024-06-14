@@ -11,7 +11,7 @@ class CreateStatementRequest {
   const CreateStatementRequest({
     required this.text,
     required this.word,
-    required this.translation,
+    this.translation = '',
   });
 
   factory CreateStatementRequest.fromJson(Map<String, dynamic> json) => _$CreateStatementRequestFromJson(json);

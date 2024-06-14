@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lexisnap/core/models/create_word_request.dart';
+// import 'package:lexisnap/core/models/create_statement_request.dart';
+// import 'package:lexisnap/core/models/update_statement_request.dart';
+// import 'package:lexisnap/core/models/update_word_request.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:lexisnap/features/home/presentation/controllers/statement_controller.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
 
 class HomePage extends ConsumerWidget {
@@ -27,29 +30,62 @@ class HomePage extends ConsumerWidget {
                 onPressed: state.createWordLoading
                     ? null
                     : () {
-                        // ref.read(wordControllerProvider.notifier).updateWord(
-                        //       context,
-                        //       const Word(
-                        //         id: '666c3457abf43e912cef9172',
-                        //         word: 'Good Good',
-                        //         definitions: ['Word to impress someone'],
-                        //         tags: [],
-                        //         translations: ['جميل'],
-                        //         statements: [],
-                        //         synonyms: [],
-                        //         opposites: [],
-                        //         note: 'No notes now',
+                        ref
+                            .read(statementControllerProvider.notifier)
+                            .deleteStatement(context, '666cb02ae15c6a6e9eca5a57');
+
+                        // ref.read(statementControllerProvider.notifier).updateStatement(
+                        //       context: context,
+                        //       id: '666cb02ae15c6a6e9eca5a57',
+                        //       statement: const UpdateStatementRequest(
+                        //         text: 'THIS IS AMAZING!!!!',
+                        //         translation: 'هذا رائع!!',
                         //       ),
                         //     );
 
-                        ref.read(wordControllerProvider.notifier).createWord(
-                              context,
-                              const CreateWordRequest(
-                                word: 'Ahmed',
-                                definitions: ['definitions'],
-                                translations: ['جميل'],
-                              ),
-                            );
+                        // ref
+                        //     .read(statementControllerProvider.notifier)
+                        //     .getStatementById(context, '666cb02ae15c6a6e9eca5a57');
+
+                        // ref.read(statementControllerProvider.notifier).createStatement(
+                        //       context,
+                        //       const CreateStatementRequest(
+                        //         text: 'That is amazing!!',
+                        //         word: '666c379fabf43e912cef9181',
+                        //       ),
+                        //     );
+
+                        // ref.read(wordControllerProvider.notifier).getWordsOverview(context);
+
+                        // ref.read(wordControllerProvider.notifier).getAllWords(context, 1);
+
+                        // ref.read(wordControllerProvider.notifier).getWordById(context, '666c379fabf43e912cef9181');
+
+                        // ref.read(wordControllerProvider.notifier).deleteWord(context, '666c3b4e91f9dfc1a09ad7de');
+
+                        // ref.read(wordControllerProvider.notifier).updateWord(
+                        //       context: context,
+                        //       id: '666c3bbb1b5f5e7097db9b2d',
+                        //       word: const UpdateWordRequest(
+                        //         word: 'Mohammed',
+                        //         note: 'Small Update',
+                        //         definitions: [],
+                        //         translations: [],
+                        //         tags: [],
+                        //         statements: [],
+                        //         synonyms: [],
+                        //         opposites: [],
+                        //       ),
+                        //     );
+
+                        // ref.read(wordControllerProvider.notifier).createWord(
+                        //       context,
+                        //       const CreateWordRequest(
+                        //         word: 'Ahmed',
+                        //         definitions: ['definitions'],
+                        //         translations: ['جميل'],
+                        //       ),
+                        //     );
                       },
                 child: const Text('Create a Word'),
               );

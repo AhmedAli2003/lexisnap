@@ -13,7 +13,7 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.9:3000/api/v1/words';
+    baseUrl ??= 'http://10.0.0.11:3000/api/v1/words';
   }
 
   final Dio _dio;
@@ -114,7 +114,7 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
     )
             .compose(
               _dio.options,
-              '/:id',
+              '/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -185,7 +185,7 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
     )
             .compose(
               _dio.options,
-              '/:id',
+              '/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -202,7 +202,7 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
   }
 
   @override
-  Future<ApiResponse<dynamic>> deleteWord({
+  Future<HttpResponse<void>> deleteWord({
     required String id,
     required String accessToken,
   }) async {
@@ -211,15 +211,15 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
     final _headers = <String, dynamic>{r'authorization': accessToken};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<dynamic>>(Options(
+    final _result =
+        await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/:id',
+              '/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -228,11 +228,8 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ApiResponse<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
+    final httpResponse = HttpResponse(null, _result);
+    return httpResponse;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

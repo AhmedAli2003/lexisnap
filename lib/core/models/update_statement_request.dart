@@ -8,8 +8,8 @@ class UpdateStatementRequest {
   final String translation;
 
   const UpdateStatementRequest({
-    required this.text,
-    required this.translation,
+    this.text = '',
+    this.translation = '',
   });
 
   factory UpdateStatementRequest.fromJson(Map<String, dynamic> json) => _$UpdateStatementRequestFromJson(json);

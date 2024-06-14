@@ -27,7 +27,7 @@ abstract class TagsRemoteDataSource {
     @Header(AppUrls.authorization) required String accessToken,
   });
 
-  @GET('/:id')
+  @GET('/{id}')
   Future<ApiResponse<TagModel>> getTagById({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
@@ -39,15 +39,15 @@ abstract class TagsRemoteDataSource {
     @Body() required CreateOrUpdateTagRequest tag,
   });
 
-  @PATCH('/:id')
+  @PATCH('/{id}')
   Future<ApiResponse<MinimalTagModel>> updateTag({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
     @Body() required CreateOrUpdateTagRequest tag,
   });
 
-  @DELETE('/:id')
-  Future<ApiResponse> deleteTag({
+  @DELETE('/{id}')
+  Future<HttpResponse<void>> deleteTag({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
   });

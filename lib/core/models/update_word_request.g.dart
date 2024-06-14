@@ -9,7 +9,7 @@ part of 'update_word_request.dart';
 UpdateWordRequest _$UpdateWordRequestFromJson(Map<String, dynamic> json) =>
     UpdateWordRequest(
       word: json['word'] as String,
-      note: json['note'] as String?,
+      note: json['note'] as String,
       definitions: (json['definitions'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),

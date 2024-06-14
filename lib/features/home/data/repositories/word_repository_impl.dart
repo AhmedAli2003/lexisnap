@@ -49,8 +49,8 @@ class WordRepositoryImpl implements WordRepository {
     try {
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.deleteWord(id: id, accessToken: accessToken);
-      if (!response.success) {
-        throw ServerException(message: response.message!);
+      if (response.response.statusCode != 204) {
+        throw const ServerException(message: 'Could not delete word, try again');
       }
       return const Right(unit);
     } on ServerException catch (e) {

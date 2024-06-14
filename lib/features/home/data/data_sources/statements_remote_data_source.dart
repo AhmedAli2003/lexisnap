@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/core/constants/app_urls.dart';
 import 'package:lexisnap/core/models/api_response.dart';
+import 'package:lexisnap/core/models/create_statement_request.dart';
+import 'package:lexisnap/core/models/update_statement_request.dart';
 import 'package:lexisnap/core/shared/dio_provider.dart';
 import 'package:lexisnap/features/home/data/models/statement_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -18,7 +20,7 @@ final statementsRemoteDataSourceProvider = Provider<StatementsRemoteDataSource>(
 abstract class StatementsRemoteDataSource {
   factory StatementsRemoteDataSource(Dio dio, {String baseUrl}) = _StatementsRemoteDataSource;
 
-  @GET('/:id')
+  @GET('/{id}')
   Future<ApiResponse<StatementModel>> getStatementById({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
@@ -27,18 +29,18 @@ abstract class StatementsRemoteDataSource {
   @POST('/')
   Future<ApiResponse<StatementModel>> createStatement({
     @Header(AppUrls.authorization) required String accessToken,
-    @Body() required StatementModel statement,
+    @Body() required CreateStatementRequest statement,
   });
 
-  @PATCH('/:id')
+  @PATCH('/{id}')
   Future<ApiResponse<StatementModel>> updateStatement({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
-    @Body() required StatementModel statement,
+    @Body() required UpdateStatementRequest statement,
   });
 
-  @DELETE('/:id')
-  Future<ApiResponse> deleteStatement({
+  @DELETE('/{id}')
+  Future<HttpResponse<void>> deleteStatement({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
   });
