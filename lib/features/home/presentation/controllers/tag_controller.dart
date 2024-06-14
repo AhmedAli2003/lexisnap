@@ -67,7 +67,13 @@ class TagController extends StateNotifier<TagControllerState> {
     state.updateTagLoading = false;
     either.fold(
       (failure) => showSnackBar(context, failure.message),
-      (tag) => _ref.read(tagProvider.notifier).update((_) => tag),
+      (tag) => _ref.read(tagProvider.notifier).update(
+            (_) => Tag(
+              id: tag.id,
+              name: tag.name,
+              words: [],
+            ),
+          ),
     );
   }
 

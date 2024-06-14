@@ -91,7 +91,7 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Either<Failure, Tag>> updateTag(MinimalTag tag) async {
+  Future<Either<Failure, MinimalTag>> updateTag(MinimalTag tag) async {
     try {
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.updateTag(

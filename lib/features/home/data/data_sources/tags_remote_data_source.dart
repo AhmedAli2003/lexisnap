@@ -39,7 +39,7 @@ abstract class TagsRemoteDataSource {
   });
 
   @PATCH('/:id')
-  Future<ApiResponse<TagModel>> updateTag({
+  Future<ApiResponse<MinimalTagModel>> updateTag({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
     @Body() required MinimalTagModel tag,

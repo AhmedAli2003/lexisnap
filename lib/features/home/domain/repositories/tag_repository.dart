@@ -12,7 +12,7 @@ abstract class TagRepository {
 
   Future<Either<Failure, Tag>> createTag(Tag tag);
 
-  Future<Either<Failure, Tag>> updateTag(MinimalTag tag);
+  Future<Either<Failure, MinimalTag>> updateTag(MinimalTag tag);
 
   Future<Either<Failure, Unit>> deleteTag(String id);
 }

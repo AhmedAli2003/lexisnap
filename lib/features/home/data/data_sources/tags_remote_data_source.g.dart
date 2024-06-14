@@ -129,7 +129,7 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
   }
 
   @override
-  Future<ApiResponse<TagModel>> updateTag({
+  Future<ApiResponse<MinimalTagModel>> updateTag({
     required String id,
     required String accessToken,
     required MinimalTagModel tag,
@@ -141,7 +141,7 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     final _data = <String, dynamic>{};
     _data.addAll(tag.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<TagModel>>(Options(
+        _setStreamType<ApiResponse<MinimalTagModel>>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
@@ -157,9 +157,9 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ApiResponse<TagModel>.fromJson(
+    final value = ApiResponse<MinimalTagModel>.fromJson(
       _result.data!,
-      (json) => TagModel.fromJson(json as Map<String, dynamic>),
+      (json) => MinimalTagModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
