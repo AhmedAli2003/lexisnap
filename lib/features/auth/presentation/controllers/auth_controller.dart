@@ -4,13 +4,13 @@ import 'package:async/async.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lexisnap/core/app/app.dart';
 import 'package:lexisnap/core/shared/splash_screen.dart';
 import 'package:lexisnap/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:lexisnap/features/auth/domain/entities/app_user.dart';
 import 'package:lexisnap/features/auth/domain/repositories/auth_repository.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/features/auth/presentation/pages/auth_page.dart';
+import 'package:lexisnap/features/home/presentation/pages/home_page.dart';
 
 final userStreamController = StreamController<void>.broadcast();
 

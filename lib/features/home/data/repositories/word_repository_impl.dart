@@ -3,6 +3,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:lexisnap/core/errors/exceptions.dart';
 import 'package:lexisnap/core/errors/failure.dart';
 import 'package:lexisnap/core/mappers/word_mappers.dart';
+import 'package:lexisnap/core/models/create_word_request.dart';
+import 'package:lexisnap/core/models/update_word_request.dart';
 import 'package:lexisnap/core/shared/shared_preferences_manager.dart';
 import 'package:lexisnap/features/home/data/data_sources/words_remote_data_source.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
@@ -27,10 +29,10 @@ class WordRepositoryImpl implements WordRepository {
         _dataSource = dataSource;
 
   @override
-  Future<Either<Failure, Word>> createWord(Word word) async {
+  Future<Either<Failure, Word>> createWord(CreateWordRequest word) async {
     try {
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
-      final response = await _dataSource.createWord(accessToken: accessToken, word: word.toModel());
+      final response = await _dataSource.createWord(accessToken: accessToken, word: word);
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
       }
@@ -107,13 +109,13 @@ class WordRepositoryImpl implements WordRepository {
   }
 
   @override
-  Future<Either<Failure, Word>> updateWord(Word word) async {
+  Future<Either<Failure, Word>> updateWord(String id, UpdateWordRequest word) async {
     try {
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.updateWord(
-        id: word.id,
+        id: id,
         accessToken: accessToken,
-        word: word.toModel(),
+        word: word,
       );
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);

@@ -8,6 +8,7 @@ import 'package:lexisnap/features/home/data/data_sources/tags_remote_data_source
 import 'package:lexisnap/features/home/domain/entities/minimal_tag.dart';
 import 'package:lexisnap/features/home/domain/entities/tag.dart';
 import 'package:lexisnap/features/home/domain/repositories/tag_repository.dart';
+import 'package:lexisnap/core/models/create_or_update_tag_request.dart';
 
 final tagRepositoryProvider = Provider<TagRepository>(
   (ref) => TagRepositoryImpl(
@@ -27,10 +28,10 @@ class TagRepositoryImpl implements TagRepository {
         _dataSource = dataSource;
 
   @override
-  Future<Either<Failure, Tag>> createTag(Tag tag) async {
+  Future<Either<Failure, Tag>> createTag(CreateOrUpdateTagRequest tag) async {
     try {
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
-      final response = await _dataSource.createTag(accessToken: accessToken, tag: tag.toModel());
+      final response = await _dataSource.createTag(accessToken: accessToken, tag: tag);
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
       }
@@ -91,13 +92,13 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Either<Failure, MinimalTag>> updateTag(MinimalTag tag) async {
+  Future<Either<Failure, MinimalTag>> updateTag(String id, CreateOrUpdateTagRequest tag) async {
     try {
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.updateTag(
-        id: tag.id,
+        id: id,
         accessToken: accessToken,
-        tag: tag.toModel(),
+        tag: tag,
       );
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);

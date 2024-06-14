@@ -7,7 +7,7 @@ import 'package:lexisnap/features/home/domain/entities/tag.dart';
 
 extension TagToModel on Tag {
   TagModel toModel() => TagModel(
-        id: id,
+        id: null,
         name: name,
         words: words
             .map(
@@ -20,7 +20,7 @@ extension TagToModel on Tag {
 extension ModelToTag on TagModel {
   Tag toEntity() {
     if (id == null || name == null) {
-      throw CouldNotMappingException(message: 'Id and name must be specified');
+      throw const CouldNotMappingException(message: 'Id and name must be specified');
     }
     return Tag(id: id!, name: name!, words: words == null ? [] : words!.map((word) => word.toEntity()).toList());
   }
@@ -28,7 +28,7 @@ extension ModelToTag on TagModel {
 
 extension MinimalTagToModel on MinimalTag {
   MinimalTagModel toModel() => MinimalTagModel(
-        id: id,
+        id: null,
         name: name,
       );
 }
@@ -36,7 +36,7 @@ extension MinimalTagToModel on MinimalTag {
 extension ModelToMinimalTag on MinimalTagModel {
   MinimalTag toEntity() {
     if (id == null || name == null) {
-      throw CouldNotMappingException(message: 'Id and name must be specified');
+      throw const CouldNotMappingException(message: 'Id and name must be specified');
     }
     return MinimalTag(id: id!, name: name!);
   }

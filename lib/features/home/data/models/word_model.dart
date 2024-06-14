@@ -7,6 +7,7 @@ part 'word_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class WordModel {
+  @JsonKey(name: '_id')
   final String? id;
   final String? word;
   final List<String>? definitions;

@@ -5,6 +5,7 @@ import 'package:lexisnap/features/home/domain/entities/minimal_tag.dart';
 import 'package:lexisnap/features/home/domain/entities/tag.dart';
 import 'package:lexisnap/features/home/domain/repositories/tag_repository.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
+import 'package:lexisnap/core/models/create_or_update_tag_request.dart';
 
 final allTagsProvider = StateProvider<List<MinimalTag>>((ref) => []);
 
@@ -51,7 +52,7 @@ class TagController extends StateNotifier<TagControllerState> {
     );
   }
 
-  void createTag(BuildContext context, Tag tag) async {
+  void createTag(BuildContext context, CreateOrUpdateTagRequest tag) async {
     state.createTagLoading = true;
     final either = await _repository.createTag(tag);
     state.createTagLoading = false;
@@ -61,9 +62,13 @@ class TagController extends StateNotifier<TagControllerState> {
     );
   }
 
-  void updateTag(BuildContext context, MinimalTag tag) async {
+  void updateTag({
+    required BuildContext context,
+    required String id,
+    required CreateOrUpdateTagRequest tag,
+  }) async {
     state.updateTagLoading = true;
-    final either = await _repository.updateTag(tag);
+    final either = await _repository.updateTag(id, tag);
     state.updateTagLoading = false;
     either.fold(
       (failure) => showSnackBar(context, failure.message),

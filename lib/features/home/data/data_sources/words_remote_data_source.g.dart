@@ -13,7 +13,7 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.2:3000/api/v1/words';
+    baseUrl ??= 'http://10.0.0.9:3000/api/v1/words';
   }
 
   final Dio _dio;
@@ -133,7 +133,7 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
   @override
   Future<ApiResponse<WordModel>> createWord({
     required String accessToken,
-    required WordModel word,
+    required CreateWordRequest word,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -169,7 +169,7 @@ class _WordsRemoteDataSource implements WordsRemoteDataSource {
   Future<ApiResponse<WordModel>> updateWord({
     required String id,
     required String accessToken,
-    required WordModel word,
+    required UpdateWordRequest word,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/models/create_word_request.dart';
+import 'package:lexisnap/core/models/update_word_request.dart';
 import 'package:lexisnap/features/home/data/repositories/word_repository_impl.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
 import 'package:lexisnap/features/home/domain/entities/word.dart';
@@ -12,7 +14,7 @@ final allWordsProvider = StateProvider<List<Word>>((_) => []);
 
 final wordProvider = StateProvider<Word?>((_) => null);
 
-final wordControllerProvider = Provider<WordController>(
+final wordControllerProvider = StateNotifierProvider<WordController, WordControllerState>(
   (ref) => WordController(
     ref: ref,
     repository: ref.read(wordRepositoryProvider),
@@ -66,9 +68,19 @@ class WordController extends StateNotifier<WordControllerState> {
     );
   }
 
-  void updateWord(BuildContext context, Word word) async {
+  void createWord(BuildContext context, CreateWordRequest word) async {
+    state.createWordLoading = true;
+    final either = await _repository.createWord(word);
+    state.createWordLoading = false;
+    either.fold(
+      (failure) => showSnackBar(context, failure.message),
+      (word) => _ref.read(wordProvider.notifier).update((_) => word),
+    );
+  }
+
+  void updateWord({required BuildContext context, required String id ,required UpdateWordRequest word}) async {
     state.updateWordLoading = true;
-    final either = await _repository.updateWord(word);
+    final either = await _repository.updateWord(id, word);
     state.updateWordLoading = false;
     either.fold(
       (failure) => showSnackBar(context, failure.message),
@@ -91,6 +103,7 @@ class WordControllerState {
   bool getWordsOverviewLoading;
   bool getAllWordsLoading;
   bool getWordByIdLoading;
+  bool createWordLoading;
   bool updateWordLoading;
   bool deleteWordLoading;
 
@@ -98,6 +111,7 @@ class WordControllerState {
     this.getWordsOverviewLoading = false,
     this.getAllWordsLoading = false,
     this.getWordByIdLoading = false,
+    this.createWordLoading = false,
     this.updateWordLoading = false,
     this.deleteWordLoading = false,
   });

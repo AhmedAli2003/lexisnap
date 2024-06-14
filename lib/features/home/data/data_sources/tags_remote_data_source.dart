@@ -6,6 +6,7 @@ import 'package:lexisnap/core/shared/dio_provider.dart';
 import 'package:lexisnap/features/home/data/models/minimal_tag_model.dart';
 import 'package:lexisnap/features/home/data/models/pagination_response.dart';
 import 'package:lexisnap/features/home/data/models/tag_model.dart';
+import 'package:lexisnap/core/models/create_or_update_tag_request.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'tags_remote_data_source.g.dart';
@@ -35,14 +36,14 @@ abstract class TagsRemoteDataSource {
   @POST('/')
   Future<ApiResponse<TagModel>> createTag({
     @Header(AppUrls.authorization) required String accessToken,
-    @Body() required TagModel tag,
+    @Body() required CreateOrUpdateTagRequest tag,
   });
 
   @PATCH('/:id')
   Future<ApiResponse<MinimalTagModel>> updateTag({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
-    @Body() required MinimalTagModel tag,
+    @Body() required CreateOrUpdateTagRequest tag,
   });
 
   @DELETE('/:id')

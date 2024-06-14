@@ -4,7 +4,7 @@ import 'package:lexisnap/features/home/domain/entities/statement.dart';
 
 extension StatementToModel on Statement {
   StatementModel toModel() => StatementModel(
-        id: id,
+        id: null,
         text: text,
         wordId: wordId,
         translation: translation,
@@ -14,7 +14,7 @@ extension StatementToModel on Statement {
 extension ModelToStatement on StatementModel {
   Statement toEntity() {
     if (id == null || text == null) {
-      throw CouldNotMappingException(message: 'ID and text are required');
+      throw const CouldNotMappingException(message: 'ID and text are required');
     }
     return Statement(
       id: id!,

@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/core/constants/app_urls.dart';
 import 'package:lexisnap/core/models/api_response.dart';
+import 'package:lexisnap/core/models/create_word_request.dart';
+import 'package:lexisnap/core/models/update_word_request.dart';
 import 'package:lexisnap/core/shared/dio_provider.dart';
 import 'package:lexisnap/features/home/data/models/minimal_word_model.dart';
 import 'package:lexisnap/features/home/data/models/pagination_response.dart';
@@ -40,14 +42,14 @@ abstract class WordsRemoteDataSource {
   @POST('/')
   Future<ApiResponse<WordModel>> createWord({
     @Header(AppUrls.authorization) required String accessToken,
-    @Body() required WordModel word,
+    @Body() required CreateWordRequest word,
   });
 
   @PUT('/:id')
   Future<ApiResponse<WordModel>> updateWord({
     @Path('id') required String id,
     @Header(AppUrls.authorization) required String accessToken,
-    @Body() required WordModel word,
+    @Body() required UpdateWordRequest word,
   });
 
   @DELETE('/:id')

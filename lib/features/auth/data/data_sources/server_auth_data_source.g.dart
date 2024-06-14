@@ -13,7 +13,7 @@ class _ServerAuthDataSource implements ServerAuthDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.2:3000/api/v1/auth';
+    baseUrl ??= 'http://10.0.0.9:3000/api/v1/auth';
   }
 
   final Dio _dio;

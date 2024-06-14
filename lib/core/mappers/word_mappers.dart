@@ -8,7 +8,7 @@ import 'package:lexisnap/features/home/domain/entities/word.dart';
 
 extension WordToModel on Word {
   WordModel toModel() => WordModel(
-        id: id,
+        id: null,
         word: word,
         definitions: definitions,
         tags: tags.map((t) => t.toModel()).toList(),
@@ -46,7 +46,7 @@ extension MinimalWordToModel on MinimalWord {
 extension ModelToMinimalWord on MinimalWordModel {
   MinimalWord toEntity() {
     if (id == null || word == null) {
-      throw CouldNotMappingException(message: 'id or word is null');
+      throw const CouldNotMappingException(message: 'id or word is null');
     }
     return MinimalWord(id: id!, word: word!);
   }

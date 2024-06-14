@@ -17,8 +17,7 @@ class SharedPreferencesManager {
   }
 
   String getAccessToken() {
-    final accessToken = _sharedPreferences.getString('ACCESS_TOKEN');
-    return accessToken ?? '';
+    return 'Bearer ${_sharedPreferences.getString('ACCESS_TOKEN')}';
   }
 
   Future<bool> saveExpirationDate(String expiredIn) async {

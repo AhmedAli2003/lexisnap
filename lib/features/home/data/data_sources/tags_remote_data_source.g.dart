@@ -13,7 +13,7 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.2:3000/api/v1/tags';
+    baseUrl ??= 'http://10.0.0.9:3000/api/v1/tags';
   }
 
   final Dio _dio;
@@ -96,7 +96,7 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
   @override
   Future<ApiResponse<TagModel>> createTag({
     required String accessToken,
-    required TagModel tag,
+    required CreateOrUpdateTagRequest tag,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -132,7 +132,7 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
   Future<ApiResponse<MinimalTagModel>> updateTag({
     required String id,
     required String accessToken,
-    required MinimalTagModel tag,
+    required CreateOrUpdateTagRequest tag,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
