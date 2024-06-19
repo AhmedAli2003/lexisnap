@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lexisnap/features/home/domain/entities/word.dart';
 
 part 'update_word_request.g.dart';
 
@@ -23,6 +24,19 @@ class UpdateWordRequest {
     required this.synonyms,
     required this.opposites,
   });
+
+  factory UpdateWordRequest.fromWord(Word word) {
+    return UpdateWordRequest(
+      word: word.word,
+      note: word.note,
+      definitions: word.definitions,
+      translations: word.translations,
+      tags: word.tags.map((tag) => tag.id).toList(),
+      statements: word.statements.map((statement) => statement.id).toList(),
+      synonyms: word.synonyms.map((syn) => syn.id).toList(),
+      opposites: word.opposites.map((opp) => opp.id).toList(),
+    );
+  }
 
   factory UpdateWordRequest.fromJson(Map<String, dynamic> json) => _$UpdateWordRequestFromJson(json);
 

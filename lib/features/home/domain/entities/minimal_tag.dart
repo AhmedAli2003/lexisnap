@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class MinimalTag {
   final String id;
   final String name;
@@ -16,4 +17,16 @@ class MinimalTag {
       name: name ?? this.name,
     );
   }
+
+  @override
+  bool operator ==(covariant MinimalTag other) {
+    if (identical(this, other)) return true;
+  
+    return 
+      other.id == id &&
+      other.name == name;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

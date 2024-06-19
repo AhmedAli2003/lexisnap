@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
+import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:lexisnap/features/auth/presentation/widgets/google_sign_in_button.dart';
 
@@ -20,9 +21,9 @@ class AuthPage extends ConsumerWidget {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(224, 64, 251, 0.5),
-              Colors.purpleAccent,
-              Colors.purple,
+              AppColors.scaffoldBackgroundColor,
+              Color.fromRGBO(20, 20, 25, 0.8),
+              AppColors.grey,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

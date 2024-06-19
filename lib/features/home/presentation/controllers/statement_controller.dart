@@ -1,50 +1,52 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:lexisnap/core/models/create_statement_request.dart';
 import 'package:lexisnap/core/models/update_statement_request.dart';
+import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/features/home/data/repositories/statement_repository_impl.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
 import 'package:lexisnap/features/home/domain/repositories/statement_repository.dart';
-import 'package:lexisnap/core/shared/ui_actions.dart';
 
 final statementProvider = StateProvider<Statement?>((_) => null);
 
-final statementControllerProvider = StateNotifierProvider<StatementController, StatementControllerState>(
+final statementControllerProvider = StateNotifierProvider<StatementController, StatementLoadingState>(
   (ref) => StatementController(
     ref: ref,
     repository: ref.read(statementRepositoryProvider),
   ),
 );
 
-class StatementController extends StateNotifier<StatementControllerState> {
+class StatementController extends StateNotifier<StatementLoadingState> {
   StatementController({
     required Ref ref,
     required StatementRepository repository,
   })  : _ref = ref,
         _repository = repository,
-        super(StatementControllerState());
+        super(const StatementLoadingState());
 
   final Ref _ref;
   final StatementRepository _repository;
 
-  void createStatement(BuildContext context, CreateStatementRequest statement) async {
-    state.createStatementLoading = true;
+  Future<void> createStatement(BuildContext context, CreateStatementRequest statement) async {
+    state = state.copyWith(createStatement: true);
     final either = await _repository.createStatement(statement);
-    state.createStatementLoading = false;
+    state = state.copyWith(createStatement: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
       (statement) => _ref.read(statementProvider.notifier).update((_) => statement),
     );
   }
 
-  void updateStatement({
+  Future<void> updateStatement({
     required BuildContext context,
     required String id,
     required UpdateStatementRequest statement,
   }) async {
-    state.updateStatementLoading = true;
+    state = state.copyWith(updateStatement: true);
     final either = await _repository.updateStatement(id, statement);
-    state.updateStatementLoading = false;
+    state = state.copyWith(updateStatement: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
       (statement) => _ref.read(statementProvider.notifier).update((_) => statement),
@@ -52,9 +54,9 @@ class StatementController extends StateNotifier<StatementControllerState> {
   }
 
   void deleteStatement(BuildContext context, String id) async {
-    state.deleteStatementLoading = true;
+    state = state.copyWith(deleteStatement: true);
     final either = await _repository.deleteStatement(id);
-    state.deleteStatementLoading = false;
+    state = state.copyWith(deleteStatement: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
       (_) => _ref.read(statementProvider.notifier).update((_) => null),
@@ -62,9 +64,9 @@ class StatementController extends StateNotifier<StatementControllerState> {
   }
 
   void getStatementById(BuildContext context, String id) async {
-    state.getStatementByIdLoading = true;
+    state = state.copyWith(getStatementById: true);
     final either = await _repository.getStatementById(id);
-    state.getStatementByIdLoading = false;
+    state = state.copyWith(getStatementById: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
       (statement) => _ref.read(statementProvider.notifier).update((_) => statement),
@@ -72,16 +74,30 @@ class StatementController extends StateNotifier<StatementControllerState> {
   }
 }
 
-class StatementControllerState {
-  bool getStatementByIdLoading;
-  bool createStatementLoading;
-  bool updateStatementLoading;
-  bool deleteStatementLoading;
+class StatementLoadingState {
+  final bool createStatement;
+  final bool getStatementById;
+  final bool updateStatement;
+  final bool deleteStatement;
 
-  StatementControllerState({
-    this.getStatementByIdLoading = false,
-    this.createStatementLoading = false,
-    this.updateStatementLoading = false,
-    this.deleteStatementLoading = false,
+  const StatementLoadingState({
+    this.createStatement = false,
+    this.getStatementById = false,
+    this.updateStatement = false,
+    this.deleteStatement = false,
   });
+
+  StatementLoadingState copyWith({
+    bool? createStatement,
+    bool? getStatementById,
+    bool? updateStatement,
+    bool? deleteStatement,
+  }) {
+    return StatementLoadingState(
+      createStatement: createStatement ?? this.createStatement,
+      getStatementById: getStatementById ?? this.getStatementById,
+      updateStatement: updateStatement ?? this.updateStatement,
+      deleteStatement: deleteStatement ?? this.deleteStatement,
+    );
+  }
 }

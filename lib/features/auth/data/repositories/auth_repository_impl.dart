@@ -57,7 +57,7 @@ class AuthRepositoryImpl implements AuthRepository {
         throw ServerException(message: authApiResponse.message!);
       }
 
-      if (_ref.read(sharedPrefProvider).getAccessToken() == authApiResponse.accessToken) {
+      if (_ref.read(sharedPrefProvider).getAccessToken() != authApiResponse.accessToken) {
         // Save the access token and the expiration time
         await _ref.read(sharedPrefProvider).saveAccessToken(authApiResponse.accessToken);
         await _ref.read(sharedPrefProvider).saveExpirationDate(authApiResponse.expiresIn);
@@ -100,7 +100,7 @@ class AuthRepositoryImpl implements AuthRepository {
         throw ServerException(message: authApiResponse.message!);
       }
 
-      if (_ref.read(sharedPrefProvider).getAccessToken() == authApiResponse.accessToken) {
+      if (_ref.read(sharedPrefProvider).getAccessToken() != authApiResponse.accessToken) {
         // Save the access token and the expiration time
         await _ref.read(sharedPrefProvider).saveAccessToken(authApiResponse.accessToken);
         await _ref.read(sharedPrefProvider).saveExpirationDate(authApiResponse.expiresIn);

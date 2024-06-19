@@ -1,3 +1,4 @@
+import 'package:lexisnap/core/constants/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,6 +12,30 @@ class SharedPreferencesManager {
   const SharedPreferencesManager({
     required SharedPreferences sharedPreferences,
   }) : _sharedPreferences = sharedPreferences;
+
+  Future<bool> setSpeechRate(double rate) async {
+    return await _sharedPreferences.setDouble(AppConstants.speechRateKey, rate);
+  }
+
+  double getSpeechRate() {
+    return _sharedPreferences.getDouble(AppConstants.speechRateKey) ?? AppConstants.defaultSpeechRate;
+  }
+
+  Future<bool> setSpeechPitch(double pitch) async {
+    return await _sharedPreferences.setDouble(AppConstants.speechPitchKey, pitch);
+  }
+
+  double getSpeechPitch() {
+    return _sharedPreferences.getDouble(AppConstants.speechPitchKey) ?? AppConstants.defaultSpeechPitch;
+  }
+
+  Future<bool> setSpeechLanguage(String language) async {
+    return await _sharedPreferences.setString(AppConstants.speechLanguageKey, language);
+  }
+
+  String getSpeechLanguage() {
+    return _sharedPreferences.getString(AppConstants.speechLanguageKey) ?? AppConstants.defaultLanguage;
+  }
 
   Future<bool> saveAccessToken(String accessToken) async {
     return await _sharedPreferences.setString('ACCESS_TOKEN', accessToken);

@@ -1,4 +1,4 @@
-class MinimalWord {
+class MinimalWord implements Comparable<MinimalWord> {
   final String id;
   final String word;
 
@@ -15,5 +15,10 @@ class MinimalWord {
       id: id ?? this.id,
       word: word ?? this.word,
     );
+  }
+
+  @override
+  int compareTo(other) {
+    return word.compareTo(other.word);
   }
 }
