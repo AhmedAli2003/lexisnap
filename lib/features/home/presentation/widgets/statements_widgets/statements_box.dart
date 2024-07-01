@@ -23,14 +23,7 @@ class StatementsBox extends ConsumerWidget {
             const BoxTitle(title: 'Statements', color: AppColors.blue),
             IconButton(
               icon: const Icon(Icons.add, color: AppColors.blue),
-              onPressed: () {
-                ref.read(statementBoxStateProvider.notifier).update(
-                      (boxState) => boxState.copyWith(
-                        showTextField: true,
-                        wordId: ref.read(wordProvider)!.id,
-                      ),
-                    );
-              },
+              onPressed: () => onPressed(ref, showTextField),
             ),
           ],
         ),
@@ -74,5 +67,15 @@ class StatementsBox extends ConsumerWidget {
         if (showTextField) const CreateOrUpdateStatementColumn(),
       ],
     );
+  }
+
+  void onPressed(WidgetRef ref, bool showTextField) {
+    ref.read(statementBoxStateProvider.notifier).update(
+          (boxState) => boxState.copyWith(
+            showTextField: !showTextField,
+            update: showTextField ? false: null,
+            wordId: ref.read(wordProvider)!.id,
+          ),
+        );
   }
 }

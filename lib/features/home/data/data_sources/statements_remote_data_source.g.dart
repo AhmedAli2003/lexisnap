@@ -13,7 +13,7 @@ class _StatementsRemoteDataSource implements StatementsRemoteDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.12:3000/api/v1/statements';
+    baseUrl ??= 'http://10.0.0.9:3000/api/v1/statements';
   }
 
   final Dio _dio;

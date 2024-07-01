@@ -35,7 +35,13 @@ class WordTileWidget extends StatelessWidget {
           fontSize: 18,
         ),
       ),
-      subtitle: subtitle != null ? Text(subtitle) : null,
+      subtitle: subtitle != null
+          ? Text(
+              subtitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )
+          : null,
       trailing: SpeakIcon(text: word.word),
     );
   }

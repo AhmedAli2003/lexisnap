@@ -106,7 +106,10 @@ class _DefinitionsBoxState extends ConsumerState<DefinitionsBox> {
   }
 
   void onPressed() {
-    setState(() => showTextField = true);
+    setState(() {
+      update = showTextField ? false : update;
+      showTextField = !showTextField;
+    });
   }
 
   void onEditingComplete({String? oldDefinition}) {

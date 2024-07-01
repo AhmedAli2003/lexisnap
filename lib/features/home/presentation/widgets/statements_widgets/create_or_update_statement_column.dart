@@ -4,6 +4,7 @@ import 'package:lexisnap/core/models/create_statement_request.dart';
 import 'package:lexisnap/core/models/update_statement_request.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
+import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/statement_controller.dart';
 import 'package:lexisnap/features/home/presentation/widgets/custom_text_field.dart';
 import 'package:lexisnap/features/home/presentation/widgets/statements_widgets/statement_box_state.dart';
@@ -75,7 +76,12 @@ class _CreateOrUpdateStatementColumnState extends ConsumerState<CreateOrUpdateSt
               const SizedBox(height: 4),
               ElevatedButton(
                 onPressed: () => save(state),
-                child: const Text('Save'),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: AppColors.blue,
+                  ),
+                ),
               ),
             ],
           );

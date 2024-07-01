@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final bool? enabled;
   final HintStyle hintStyle;
   final TextDirection? textDirection;
+  final Widget? prefixIcon;
   const CustomTextField({
     super.key,
     this.controller,
@@ -26,6 +27,7 @@ class CustomTextField extends StatelessWidget {
     this.hintStyle = HintStyle.large,
     this.textDirection,
     this.onChanged,
+    this.prefixIcon
   });
 
   @override
@@ -36,6 +38,7 @@ class CustomTextField extends StatelessWidget {
       cursorColor: AppColors.blue,
       controller: controller,
       decoration: InputDecoration(
+        prefixIcon: prefixIcon,
         hintText: hint,
         border: InputBorder.none,
         enabledBorder: InputBorder.none,

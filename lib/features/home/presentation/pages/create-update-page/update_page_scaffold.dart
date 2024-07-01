@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lexisnap/features/home/presentation/widgets/cancel_button.dart';
 import 'package:lexisnap/features/home/presentation/widgets/definitions_widgets/definitions_box.dart';
+import 'package:lexisnap/features/home/presentation/widgets/opposites_widgets/opposites_box.dart';
 import 'package:lexisnap/features/home/presentation/widgets/save_word_icon_button.dart';
 import 'package:lexisnap/features/home/presentation/widgets/statements_widgets/statements_box.dart';
+import 'package:lexisnap/features/home/presentation/widgets/synonyms_widgets/synonyms_box.dart';
+import 'package:lexisnap/features/home/presentation/widgets/tags_widgets/tag_box.dart';
 import 'package:lexisnap/features/home/presentation/widgets/translations_widgets/translations_box.dart';
 import 'package:lexisnap/features/home/presentation/widgets/word_widgets/word_box.dart';
 
@@ -28,6 +31,9 @@ class UpdatePageScaffold extends StatelessWidget {
               TranslationsBox(),
               DefinitionsBox(),
               StatementsBox(),
+              TagsBox(),
+              SynonymsBox(),
+              OppositesBox(),
             ],
           ),
         ),
@@ -35,5 +41,3 @@ class UpdatePageScaffold extends StatelessWidget {
     );
   }
 }
-
-

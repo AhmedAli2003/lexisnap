@@ -2,59 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_tag.dart';
-import 'package:lexisnap/features/home/presentation/controllers/tag_controller.dart';
-import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
+import 'package:lexisnap/features/home/presentation/widgets/tags_widgets/selected_tags_provider.dart';
 
-class TagsDialog extends ConsumerWidget {
-  const TagsDialog({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tags = ref.watch(allTagsProvider);
-    return AlertDialog.adaptive(
-      title: const Text('Select Tags'),
-      titleTextStyle: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-      ),
-      content: Wrap(
-        children: [
-          for (final tag in tags)
-            TagCard(
-              tag: tag,
-              fromDialog: true,
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class TagCard extends ConsumerWidget {
+class TagWidget extends ConsumerWidget {
   final MinimalTag tag;
-  final bool fromDialog;
-
-  const TagCard({
+  final bool fromDialig;
+  const TagWidget({
     super.key,
     required this.tag,
-    this.fromDialog = false,
+    this.fromDialig = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selected = ref.watch(wordProvider)!.tags.contains(tag);
+    final selected = ref.watch(selectedTagsProvider).contains(tag);
     return GestureDetector(
-      onTap: () {
-        if (fromDialog) {
-          if (selected) {
-            ref.read(wordProvider.notifier).removeTag(tag);
-          } else {
-            ref.read(wordProvider.notifier).addTag(tag);
-          }
-        } else {
-          //TODO: Navigate
-        }
-      },
+      onTap: fromDialig ? () => select(ref, selected) : null,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         margin: const EdgeInsets.all(4),
@@ -86,5 +49,13 @@ class TagCard extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void select(WidgetRef ref, bool selected) {
+    if (selected) {
+      ref.read(selectedTagsProvider.notifier).removeTag(tag);
+    } else {
+      ref.read(selectedTagsProvider.notifier).addTag(tag);
+    }
   }
 }
