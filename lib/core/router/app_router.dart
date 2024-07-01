@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/shared/splash_screen.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:lexisnap/features/auth/presentation/pages/auth_page.dart';
-import 'package:lexisnap/features/home/presentation/pages/create_word_page.dart';
+import 'package:lexisnap/features/home/presentation/pages/create-update-page/create_and_update_word_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/home_page.dart';
+import 'package:lexisnap/features/home/presentation/pages/view_word_page.dart';
 import 'package:lexisnap/features/settings/pages/settings_page.dart';
 
 final routerProvider = Provider<AppRouter>((ref) => AppRouter(ref: ref));
@@ -42,10 +43,10 @@ class AppRouter {
         builder: (context, state) => const HomePage(),
         routes: [
           GoRoute(
-            path: CreateWordPage.path,
-            name: CreateWordPage.name,
+            path: CreateOrUpdateWordPage.path,
+            name: CreateOrUpdateWordPage.name,
             pageBuilder: (context, state) => CustomTransitionPage(
-              child: const CreateWordPage(),
+              child: const CreateOrUpdateWordPage(),
               transitionsBuilder: (
                 context,
                 animation,
@@ -56,6 +57,20 @@ class AppRouter {
                 opacity: animation,
                 child: child,
               ),
+            ),
+          ),
+          GoRoute(
+            path: ViewWordPage.path,
+            name: ViewWordPage.name,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const ViewWordPage(),
+              transitionsBuilder: (
+                context,
+                animation,
+                secondaryAnimation,
+                child,
+              ) =>
+                  FadeTransition(opacity: animation, child: child),
             ),
           ),
           GoRoute(

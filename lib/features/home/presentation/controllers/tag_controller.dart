@@ -78,7 +78,7 @@ class TagController extends StateNotifier<TagLoadingState> {
             (_) => Tag(
               id: tag.id,
               name: tag.name,
-              words: [],
+              words: {},
             ),
           ),
     );

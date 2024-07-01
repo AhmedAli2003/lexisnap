@@ -8,6 +8,7 @@ import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/features/home/data/repositories/statement_repository_impl.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
 import 'package:lexisnap/features/home/domain/repositories/statement_repository.dart';
+import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
 
 final statementProvider = StateProvider<Statement?>((_) => null);
 
@@ -29,13 +30,19 @@ class StatementController extends StateNotifier<StatementLoadingState> {
   final Ref _ref;
   final StatementRepository _repository;
 
-  Future<void> createStatement(BuildContext context, CreateStatementRequest statement) async {
+  Future<void> createStatement({
+    required BuildContext context,
+    required CreateStatementRequest statement,
+  }) async {
     state = state.copyWith(createStatement: true);
     final either = await _repository.createStatement(statement);
     state = state.copyWith(createStatement: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
-      (statement) => _ref.read(statementProvider.notifier).update((_) => statement),
+      (statement) {
+        _ref.read(statementProvider.notifier).update((_) => statement);
+        _ref.read(wordProvider.notifier).addStatement(statement);
+      },
     );
   }
 
@@ -49,7 +56,10 @@ class StatementController extends StateNotifier<StatementLoadingState> {
     state = state.copyWith(updateStatement: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
-      (statement) => _ref.read(statementProvider.notifier).update((_) => statement),
+      (statement) {
+        _ref.read(statementProvider.notifier).update((_) => statement);
+        _ref.read(wordProvider.notifier).updateStatement(statement);
+      },
     );
   }
 
@@ -57,6 +67,7 @@ class StatementController extends StateNotifier<StatementLoadingState> {
     state = state.copyWith(deleteStatement: true);
     final either = await _repository.deleteStatement(id);
     state = state.copyWith(deleteStatement: false);
+    _ref.read(wordProvider.notifier).removeStatement(id);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
       (_) => _ref.read(statementProvider.notifier).update((_) => null),

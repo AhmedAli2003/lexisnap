@@ -21,4 +21,17 @@ class MinimalWord implements Comparable<MinimalWord> {
   int compareTo(other) {
     return word.compareTo(other.word);
   }
+
+  @override
+  bool operator ==(covariant MinimalWord other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id && other.word == word;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ word.hashCode;
+
+  @override
+  String toString() => 'MinimalWord(id: $id, word: $word)';
 }

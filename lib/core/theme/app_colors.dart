@@ -1,3 +1,5 @@
+import 'dart:math' show Random;
+
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -11,4 +13,18 @@ class AppColors {
   static const pink = Color(0xFFFFA6C9);
   static const purple = Color(0xFF7B64DF);
   static const white = Colors.white;
+
+  static const List<Color> _colors = [
+    blue,
+    yellow,
+    green,
+    pink,
+    purple,
+  ];
+
+  static final _random = Random();
+
+  static Color get randomColor {
+    return _colors[_random.nextInt(_colors.length)];
+  }
 }

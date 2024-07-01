@@ -10,9 +10,9 @@ extension WordToModel on Word {
   WordModel toModel() => WordModel(
         id: null,
         word: word,
-        definitions: definitions,
+        definitions: definitions.toList(),
         tags: tags.map((t) => t.toModel()).toList(),
-        translations: translations,
+        translations: translations.toList(),
         statements: statements.map((s) => s.toModel()).toList(),
         synonyms: synonyms.map((s) => s.toModel()).toList(),
         opposites: opposites.map((o) => o.toModel()).toList(),
@@ -28,12 +28,12 @@ extension ModelToWord on WordModel {
     return Word(
       id: id!,
       word: word!,
-      definitions: definitions ?? [],
-      tags: tags == null ? [] : tags!.map((e) => e.toEntity()).toList(),
-      translations: translations ?? [],
-      statements: statements == null ? [] : statements!.map((s) => s.toEntity()).toList(),
-      synonyms: synonyms == null ? [] : synonyms!.map((s) => s.toEntity()).toList(),
-      opposites: opposites == null ? [] : opposites!.map((s) => s.toEntity()).toList(),
+      definitions: definitions?.toSet() ?? {},
+      tags: tags == null ? {} : tags!.map((e) => e.toEntity()).toSet(),
+      translations: translations?.toSet() ?? {},
+      statements: statements == null ? {} : statements!.map((s) => s.toEntity()).toSet(),
+      synonyms: synonyms == null ? {} : synonyms!.map((s) => s.toEntity()).toSet(),
+      opposites: opposites == null ? {} : opposites!.map((s) => s.toEntity()).toSet(),
       note: note,
     );
   }

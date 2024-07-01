@@ -49,6 +49,7 @@ dependencies:
   go_router: ^14.1.4
   async: ^2.11.0
   flutter_tts: ^3.8.5
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:

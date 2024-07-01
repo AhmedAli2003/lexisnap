@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class Statement {
   final String id;
   final String text;
@@ -26,15 +25,29 @@ class Statement {
     );
   }
 
+  
+
   @override
   bool operator ==(covariant Statement other) {
     if (identical(this, other)) return true;
-
-    return other.id == id;
+  
+    return 
+      other.id == id &&
+      other.text == text &&
+      other.wordId == wordId &&
+      other.translation == translation;
   }
 
   @override
   int get hashCode {
-    return id.hashCode;
+    return id.hashCode ^
+      text.hashCode ^
+      wordId.hashCode ^
+      translation.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'Statement(id: $id, text: $text, wordId: $wordId, translation: $translation)';
   }
 }

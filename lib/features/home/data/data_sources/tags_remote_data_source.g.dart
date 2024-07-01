@@ -13,7 +13,7 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.13:3000/api/v1/tags';
+    baseUrl ??= 'http://10.0.0.12:3000/api/v1/tags';
   }
 
   final Dio _dio;

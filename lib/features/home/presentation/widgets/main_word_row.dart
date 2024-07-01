@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
+import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
 import 'package:lexisnap/features/home/presentation/widgets/custom_text_field.dart';
 import 'package:lexisnap/features/home/presentation/widgets/speak_icon.dart';
 

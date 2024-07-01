@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_tag.dart';
 import 'package:lexisnap/features/home/presentation/controllers/tag_controller.dart';
-import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
+import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
 
 class TagsDialog extends ConsumerWidget {
   const TagsDialog({super.key});
@@ -22,6 +22,7 @@ class TagsDialog extends ConsumerWidget {
           for (final tag in tags)
             TagCard(
               tag: tag,
+              fromDialog: true,
             ),
         ],
       ),
@@ -36,7 +37,7 @@ class TagCard extends ConsumerWidget {
   const TagCard({
     super.key,
     required this.tag,
-    this.fromDialog = true,
+    this.fromDialog = false,
   });
 
   @override
@@ -46,7 +47,7 @@ class TagCard extends ConsumerWidget {
       onTap: () {
         if (fromDialog) {
           if (selected) {
-            ref.read(wordProvider.notifier).deleteTag(tag);
+            ref.read(wordProvider.notifier).removeTag(tag);
           } else {
             ref.read(wordProvider.notifier).addTag(tag);
           }

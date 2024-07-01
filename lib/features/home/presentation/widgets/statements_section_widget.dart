@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lexisnap/core/models/create_statement_request.dart';
 import 'package:lexisnap/core/models/update_statement_request.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
-import 'package:lexisnap/features/home/domain/entities/statement.dart';
 import 'package:lexisnap/features/home/presentation/controllers/statement_controller.dart';
-import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
+import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
 import 'package:lexisnap/features/home/presentation/widgets/custom_text_field.dart';
+import 'package:lexisnap/features/home/presentation/widgets/delete_statement_dialog.dart';
 import 'package:lexisnap/features/home/presentation/widgets/field_title_card.dart';
-import 'package:lexisnap/features/home/presentation/widgets/speak_icon.dart';
 
-final selectedStatementToUpdate = StateProvider.autoDispose<String>((ref) => '');
+final selectedStatementToUpdateProvider = StateProvider.autoDispose<String>((ref) => '');
 
 class StatementsSectionWidget extends ConsumerStatefulWidget {
   const StatementsSectionWidget({super.key});
@@ -52,6 +50,8 @@ class _StatementsSectionWidgetState extends ConsumerState<StatementsSectionWidge
   @override
   Widget build(BuildContext context) {
     final word = ref.watch(wordProvider)!;
+    final loading = ref.watch(statementControllerProvider);
+    final selectedStatementToUpdate = ref.watch(selectedStatementToUpdateProvider);
     return Column(
       children: [
         Row(
@@ -67,8 +67,8 @@ class _StatementsSectionWidgetState extends ConsumerState<StatementsSectionWidge
           ],
         ),
         for (final statement in word.statements)
-          if (!ref.watch(statementControllerProvider).updateStatement)
-            if (ref.watch(selectedStatementToUpdate) == statement.id) ...[
+          if (selectedStatementToUpdate == statement.id)
+            if (!loading.updateStatement) ...[
               CustomTextField(
                 hintStyle: HintStyle.small,
                 controller: updateStatementController..text = statement.text,
@@ -93,12 +93,10 @@ class _StatementsSectionWidgetState extends ConsumerState<StatementsSectionWidge
                     updateStatementTranslationFocusNode.unfocus();
                     final text = updateStatementController.text.trim();
                     final translation = updateStatementTranslationController.text.trim();
-                    updateStatementController.clear();
-                    updateStatementTranslationController.clear();
                     if (text.isNotEmpty) {
                       await ref.read(statementControllerProvider.notifier).updateStatement(
                             context: context,
-                            id: ref.read(selectedStatementToUpdate),
+                            id: ref.read(selectedStatementToUpdateProvider),
                             statement: UpdateStatementRequest(
                               text: text,
                               translation: translation,
@@ -109,23 +107,13 @@ class _StatementsSectionWidgetState extends ConsumerState<StatementsSectionWidge
                         ref.read(wordProvider.notifier).updateStatement(statement);
                         ref.read(statementProvider.notifier).state = null;
                       }
-                      ref.read(selectedStatementToUpdate.notifier).state = '';
+                      ref.read(selectedStatementToUpdateProvider.notifier).state = '';
+                      updateStatementController.clear();
+                      updateStatementTranslationController.clear();
                     } else {
                       showDialog(
                         context: context,
-                        builder: (context) => AlertDialog.adaptive(
-                          title: const Text('The statement will be removed'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text('Delete'),
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text('Cancel'),
-                            ),
-                          ],
-                        ),
+                        builder: (context) => DeleteStatementDialog(statement: statement),
                       );
                     }
                   },
@@ -137,16 +125,19 @@ class _StatementsSectionWidgetState extends ConsumerState<StatementsSectionWidge
                   ),
                 ),
               ),
-            ] else
-              GestureDetector(
-                onTap: () {
-                  ref.read(selectedStatementToUpdate.notifier).state = statement.id;
-                },
-                child: StatementWidget(statement: statement),
-              )
-          else ...const [Loading()],
+            ] else ...const [
+              Loading(),
+              SizedBox(height: 12),
+            ]
+          else
+            GestureDetector(
+              onTap: () {
+                ref.read(selectedStatementToUpdateProvider.notifier).state = statement.id;
+              },
+              // child: StatementWidget(statement: statement),
+            ),
         if (showTextFields)
-          if (!ref.watch(statementControllerProvider).createStatement) ...[
+          if (!loading.createStatement) ...[
             CustomTextField(
               hint: 'Write a statement',
               hintStyle: HintStyle.small,
@@ -176,14 +167,14 @@ class _StatementsSectionWidgetState extends ConsumerState<StatementsSectionWidge
                   statementController.clear();
                   statementTranslationController.clear();
                   if (text.isNotEmpty) {
-                    await ref.read(statementControllerProvider.notifier).createStatement(
-                          context,
-                          CreateStatementRequest(
-                            text: text,
-                            translation: translation,
-                            word: word.id,
-                          ),
-                        );
+                    // await ref.read(statementControllerProvider.notifier).createStatement(
+                    //       context,
+                    //       CreateStatementRequest(
+                    //         text: text,
+                    //         translation: translation,
+                    //         word: word.id,
+                    //       ),
+                    //     );
                     final statement = ref.read(statementProvider);
                     if (statement != null) {
                       ref.read(wordProvider.notifier).addStatement(statement);
@@ -202,54 +193,8 @@ class _StatementsSectionWidgetState extends ConsumerState<StatementsSectionWidge
             ),
           ] else ...const [
             SizedBox(height: 20),
-            Loading()
+            Loading(),
           ]
-      ],
-    );
-  }
-}
-
-class StatementWidget extends StatelessWidget {
-  final Statement statement;
-  const StatementWidget({super.key, required this.statement});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(8),
-            margin: const EdgeInsets.only(bottom: 8),
-            decoration: const BoxDecoration(
-              color: AppColors.grey,
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  statement.text,
-                  style: const TextStyle(fontSize: 16),
-                ),
-                Text(
-                  statement.translation,
-                  textDirection: TextDirection.rtl,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: AppColors.yellow,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        SpeakIcon(
-          text: statement.text,
-          size: 24,
-        ),
       ],
     );
   }

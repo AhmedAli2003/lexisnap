@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final String? hint;
   final TextEditingController? controller;
   final VoidCallback? onEditingComplete;
+  final void Function(String text)? onChanged;
   final FocusNode? focusNode;
   final bool? enabled;
   final HintStyle hintStyle;
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
     this.enabled,
     this.hintStyle = HintStyle.large,
     this.textDirection,
+    this.onChanged,
   });
 
   @override
@@ -52,6 +54,7 @@ class CustomTextField extends StatelessWidget {
               fontWeight: FontWeight.normal,
             ),
       onEditingComplete: onEditingComplete,
+      onChanged: onChanged,
     );
   }
 }

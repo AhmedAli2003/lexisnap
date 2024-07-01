@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
-import 'package:lexisnap/features/home/presentation/widgets/drawer_tile.dart';
+import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_tile.dart';
 import 'package:lexisnap/features/home/presentation/widgets/sign_out_dialog.dart';
 
 class AppDrawer extends ConsumerWidget {

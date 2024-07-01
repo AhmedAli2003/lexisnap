@@ -22,7 +22,11 @@ extension ModelToTag on TagModel {
     if (id == null || name == null) {
       throw const CouldNotMappingException(message: 'Id and name must be specified');
     }
-    return Tag(id: id!, name: name!, words: words == null ? [] : words!.map((word) => word.toEntity()).toList());
+    return Tag(
+      id: id!,
+      name: name!,
+      words: words == null ? {} : words!.map((word) => word.toEntity()).toSet(),
+    );
   }
 }
 

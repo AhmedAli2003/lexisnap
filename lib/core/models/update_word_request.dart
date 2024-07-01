@@ -29,8 +29,8 @@ class UpdateWordRequest {
     return UpdateWordRequest(
       word: word.word,
       note: word.note,
-      definitions: word.definitions,
-      translations: word.translations,
+      definitions: word.definitions.toList(),
+      translations: word.translations.toList(),
       tags: word.tags.map((tag) => tag.id).toList(),
       statements: word.statements.map((statement) => statement.id).toList(),
       synonyms: word.synonyms.map((syn) => syn.id).toList(),

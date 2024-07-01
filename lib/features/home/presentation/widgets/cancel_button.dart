@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 
-class CancelAndPopButton extends StatelessWidget {
-  const CancelAndPopButton({super.key});
+class CancelButton extends StatelessWidget {
+  const CancelButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        GoRouter.of(context).pop();
-      },
+      onPressed: () => pop(context),
       child: const Text(
         'Cancel',
         style: TextStyle(
@@ -18,5 +16,9 @@ class CancelAndPopButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void pop(BuildContext context) {
+    GoRouter.of(context).pop();
   }
 }
