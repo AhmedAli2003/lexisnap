@@ -56,7 +56,7 @@ class _CreateOrUpdateStatementColumnState extends ConsumerState<CreateOrUpdateSt
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
-                controller: statementController..text = state.statement?.text ?? '',
+                controller: statementController..text = state.update ? state.statement?.text ?? '' : '',
                 focusNode: statementNode..requestFocus(),
                 hint: 'Write a statement here',
                 onEditingComplete: () {
@@ -65,7 +65,7 @@ class _CreateOrUpdateStatementColumnState extends ConsumerState<CreateOrUpdateSt
               ),
               const SizedBox(height: 4),
               CustomTextField(
-                controller: translationController..text = state.statement?.translation ?? '',
+                controller: translationController..text = state.update ? state.statement?.translation ?? '' : '',
                 focusNode: translationNode,
                 hint: 'Write a statement translation here',
                 onEditingComplete: () {
@@ -74,12 +74,14 @@ class _CreateOrUpdateStatementColumnState extends ConsumerState<CreateOrUpdateSt
                 textDirection: TextDirection.rtl,
               ),
               const SizedBox(height: 4),
-              ElevatedButton(
-                onPressed: () => save(state),
-                child: const Text(
-                  'Save',
-                  style: TextStyle(
-                    color: AppColors.blue,
+              Center(
+                child: ElevatedButton(
+                  onPressed: () => save(state),
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(
+                      color: AppColors.blue,
+                    ),
                   ),
                 ),
               ),

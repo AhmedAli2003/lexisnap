@@ -119,6 +119,7 @@ class WordController extends StateNotifier<WordLoadingState> {
       },
       (word) {
         _ref.read(wordProvider.notifier).updateWordObject(word);
+        _ref.read(wordChangesProvider.notifier).state = false;
         return word;
       },
     );

@@ -8,11 +8,8 @@ import 'package:uuid/uuid.dart';
 
 final wordChangesProvider = StateProvider.autoDispose<bool>((ref) => false);
 
-final wordProvider = StateNotifierProvider<WordNotifier, Word?>(
-  (ref) => WordNotifier(
-    ref: ref,
-    state: null,
-  ),
+final wordProvider = StateNotifierProvider.autoDispose<WordNotifier, Word?>(
+  (ref) => WordNotifier(ref: ref, state: null),
 );
 
 final wordTextProvider = Provider.autoDispose<String>((ref) {

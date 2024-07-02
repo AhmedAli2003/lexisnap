@@ -29,3 +29,14 @@ class Loading extends StatelessWidget {
     );
   }
 }
+
+class LoadingScaffold extends StatelessWidget {
+  const LoadingScaffold({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Loading(),
+    );
+  }
+}

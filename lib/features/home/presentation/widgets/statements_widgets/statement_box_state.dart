@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
 
-final statementBoxStateProvider = StateProvider<StatementBoxState>((_) => const StatementBoxState());
+final statementBoxStateProvider = StateProvider.autoDispose<StatementBoxState>((_) => const StatementBoxState());
 
 class StatementBoxState {
   final Statement? statement;

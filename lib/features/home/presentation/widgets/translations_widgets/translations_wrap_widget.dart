@@ -15,6 +15,7 @@ class TranslationsWrapWidget extends ConsumerWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Wrap(
+        alignment: WrapAlignment.end,
         children: getChildren(ref, translations, selectedTranslations),
       ),
     );

@@ -65,9 +65,9 @@ class StatementController extends StateNotifier<StatementLoadingState> {
 
   void deleteStatement(BuildContext context, String id) async {
     state = state.copyWith(deleteStatement: true);
+    _ref.read(wordProvider.notifier).removeStatement(id);
     final either = await _repository.deleteStatement(id);
     state = state.copyWith(deleteStatement: false);
-    _ref.read(wordProvider.notifier).removeStatement(id);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
       (_) => _ref.read(statementProvider.notifier).update((_) => null),
