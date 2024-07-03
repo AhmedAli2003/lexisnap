@@ -51,3 +51,7 @@ extension ModelToMinimalWord on MinimalWordModel {
     return MinimalWord(id: id!, word: word!);
   }
 }
+
+extension ToMinimal on Word {
+  MinimalWord toMinimal() => MinimalWord(id: id, word: word);
+}

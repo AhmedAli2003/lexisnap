@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/mappers/word_mappers.dart';
 import 'package:lexisnap/core/models/create_word_request.dart';
 import 'package:lexisnap/core/models/update_word_request.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
@@ -99,6 +100,8 @@ class WordController extends StateNotifier<WordLoadingState> {
       },
       (word) {
         _ref.read(wordProvider.notifier).updateWordObject(word);
+        _ref.read(allWordsProvider.notifier).update((words) => [word, ...words]);
+        _ref.read(wordsOverviewProvider.notifier).update((words) => [word.toMinimal(), ...words]);
         return word;
       },
     );
@@ -120,6 +123,7 @@ class WordController extends StateNotifier<WordLoadingState> {
       (word) {
         _ref.read(wordProvider.notifier).updateWordObject(word);
         _ref.read(wordChangesProvider.notifier).state = false;
+        // _ref.read(provider)
         return word;
       },
     );

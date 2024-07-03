@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_tile.dart';
 import 'package:lexisnap/features/home/presentation/widgets/sign_out_dialog.dart';
@@ -16,9 +18,14 @@ class AppDrawer extends ConsumerWidget {
           DrawerHeader(
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 32,
-                  backgroundImage: NetworkImage(user.profilePicture),
+                CachedNetworkImage(
+                  imageUrl: user.profilePicture,
+                  width: 64,
+                  height: 64,
+                  imageBuilder: (context, imageProvider) => CircleAvatar(
+                    radius: 32,
+                    backgroundImage: imageProvider,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Text(

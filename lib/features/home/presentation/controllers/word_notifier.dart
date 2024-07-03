@@ -9,7 +9,18 @@ import 'package:uuid/uuid.dart';
 final wordChangesProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 final wordProvider = StateNotifierProvider.autoDispose<WordNotifier, Word?>(
-  (ref) => WordNotifier(ref: ref, state: null),
+  (ref) {
+    // This is a milliseconds time between loading and build the update word scaffold
+    // after we create a new word, the create word method in word controller will
+    // assign the new word to the wordProvider, but in this time between assiging and building ui
+    // the wordProvider will be desposed, so I prevent disposing in this situation by keep it alive
+    // for 100 ms as there is no listeners, I should found another solution later
+    final link = ref.keepAlive();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      link.close();
+    });
+    return WordNotifier(ref: ref, state: null);
+  },
 );
 
 final wordTextProvider = Provider.autoDispose<String>((ref) {
@@ -58,6 +69,7 @@ class WordNotifier extends StateNotifier<Word?> {
 
   // Update the state (from null to object or from object to null)
   void updateWordObject(Word? word) {
+    print(word);
     state = word;
   }
 
