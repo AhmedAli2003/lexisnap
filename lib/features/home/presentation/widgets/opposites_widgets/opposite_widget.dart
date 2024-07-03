@@ -13,30 +13,34 @@ class OppositeWidget extends ConsumerWidget {
     this.fromDialog = false,
   });
 
+  static const _refGradient = LinearGradient(
+    colors: [
+      Colors.red,
+      Color.fromRGBO(244, 67, 54, 0.5),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const _whiteGradient = LinearGradient(
+    colors: [
+      AppColors.white,
+      Color.fromRGBO(255, 255, 255, 0.75),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selected = ref.watch(selectedOppositesProvider).contains(opposite);
     return GestureDetector(
-      onTap: fromDialog ? () => select(ref, selected) : null,
+      onTap: fromDialog ? () => select(ref, selected) : navigate,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          gradient: selected
-              ? const LinearGradient(
-                  colors: [
-                    Colors.red,
-                    Color.fromRGBO(244, 67, 54, 0.5),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : const LinearGradient(
-                  colors: [
-                    AppColors.white,
-                    Color.fromRGBO(255, 255, 255, 0.75),
-                  ],
-                ),
+          gradient: _getGradient(selected),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.all(8),
@@ -51,11 +55,27 @@ class OppositeWidget extends ConsumerWidget {
     );
   }
 
+  Gradient _getGradient(bool selected) {
+    if (fromDialog) {
+      if (selected) {
+        return _refGradient;
+      } else {
+        return _whiteGradient;
+      }
+    } else {
+      return _refGradient;
+    }
+  }
+
   void select(WidgetRef ref, bool selected) {
     if (selected) {
       ref.read(selectedOppositesProvider.notifier).removeOpposite(opposite);
     } else {
       ref.read(selectedOppositesProvider.notifier).addOpposite(opposite);
     }
+  }
+
+  void navigate() {
+    //TODO: navigate to the word page
   }
 }

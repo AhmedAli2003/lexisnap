@@ -28,20 +28,32 @@ class WordTileWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(2),
         ),
       ),
-      title: Text(
-        word.word,
-        style: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 18,
-        ),
+      title: Row(
+        children: [
+          Text(
+            word.word,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+            ),
+          ),
+          if (word.translations.isNotEmpty) const Spacer(),
+          if (word.translations.isNotEmpty)
+            Text(
+              word.translations.first,
+              style: const TextStyle(
+                fontWeight: FontWeight.normal,
+                color: AppColors.purple,
+                fontSize: 18,
+              ),
+            ),
+        ],
       ),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-          : null,
+      subtitle: Text(
+        subtitle ?? '',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
       trailing: SpeakIcon(text: word.word),
     );
   }
@@ -52,9 +64,6 @@ class WordTileWidget extends StatelessWidget {
   }
 
   String? getSubtitile(Word word) {
-    if (word.translations.isNotEmpty) {
-      return word.translations.first;
-    }
     if (word.statements.isNotEmpty) {
       return word.statements.first.text;
     }

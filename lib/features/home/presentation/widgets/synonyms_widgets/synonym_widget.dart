@@ -13,30 +13,34 @@ class SynonymWidget extends ConsumerWidget {
     this.fromDialog = false,
   });
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selected = ref.watch(selectedSynonymsProvider).contains(synonym);
-    return GestureDetector(
-      onTap: fromDialog ? () => select(ref, selected) : null,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        margin: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          gradient: selected
-              ? const LinearGradient(
+  static const _greenGradient = LinearGradient(
                   colors: [
                     AppColors.green,
                     Color.fromRGBO(121, 196, 126, 0.5),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                )
-              : const LinearGradient(
+                );
+
+
+        static const _whiteGradient = LinearGradient(
                   colors: [
                     AppColors.white,
                     Color.fromRGBO(255, 255, 255, 0.75),
-                  ],
-                ),
+                  ],     begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                );
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selected = ref.watch(selectedSynonymsProvider).contains(synonym);
+    return GestureDetector(
+      onTap: fromDialog ? () => select(ref, selected) : navigate,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        margin: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          gradient: _getGradient(selected),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.all(8),
@@ -51,11 +55,27 @@ class SynonymWidget extends ConsumerWidget {
     );
   }
 
+  Gradient _getGradient(bool selected) {
+    if (fromDialog) {
+      if (selected) {
+        return _greenGradient;
+      } else {
+        return _whiteGradient;
+      }
+    } else {
+      return _greenGradient;
+    }
+  }
+
   void select(WidgetRef ref, bool selected) {
     if (selected) {
       ref.read(selectedSynonymsProvider.notifier).removeSynonym(synonym);
     } else {
       ref.read(selectedSynonymsProvider.notifier).addSynonym(synonym);
     }
+  }
+
+  void navigate() {
+    //TODO: navigate to the word page
   }
 }

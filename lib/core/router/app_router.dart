@@ -70,7 +70,10 @@ class AppRouter {
                 secondaryAnimation,
                 child,
               ) =>
-                  FadeTransition(opacity: animation, child: child),
+                  FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
           GoRoute(

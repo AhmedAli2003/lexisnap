@@ -13,7 +13,7 @@ class _StatementsRemoteDataSource implements StatementsRemoteDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.1:3000/api/v1/statements';
+    baseUrl ??= 'http://10.0.0.10:3000/api/v1/statements';
   }
 
   final Dio _dio;
@@ -30,23 +30,22 @@ class _StatementsRemoteDataSource implements StatementsRemoteDataSource {
     final _headers = <String, dynamic>{r'authorization': accessToken};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<StatementModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<StatementModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+        .compose(
+          _dio.options,
+          '/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final value = ApiResponse<StatementModel>.fromJson(
       _result.data!,
       (json) => StatementModel.fromJson(json as Map<String, dynamic>),
@@ -65,23 +64,22 @@ class _StatementsRemoteDataSource implements StatementsRemoteDataSource {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(statement.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<StatementModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<StatementModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+        .compose(
+          _dio.options,
+          '/',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final value = ApiResponse<StatementModel>.fromJson(
       _result.data!,
       (json) => StatementModel.fromJson(json as Map<String, dynamic>),
@@ -101,23 +99,22 @@ class _StatementsRemoteDataSource implements StatementsRemoteDataSource {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(statement.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<StatementModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<StatementModel>>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+        .compose(
+          _dio.options,
+          '/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final value = ApiResponse<StatementModel>.fromJson(
       _result.data!,
       (json) => StatementModel.fromJson(json as Map<String, dynamic>),
@@ -135,31 +132,29 @@ class _StatementsRemoteDataSource implements StatementsRemoteDataSource {
     final _headers = <String, dynamic>{r'authorization': accessToken};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
+    final _result = await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+        .compose(
+          _dio.options,
+          '/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final httpResponse = HttpResponse(null, _result);
     return httpResponse;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes ||
-            requestOptions.responseType == ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
         requestOptions.responseType = ResponseType.plain;
       } else {

@@ -4,7 +4,10 @@ import 'package:lexisnap/core/theme/app_colors.dart';
 
 class DefinitionWidget extends StatelessWidget {
   final String definition;
-  const DefinitionWidget({super.key, required this.definition});
+  const DefinitionWidget({
+    super.key,
+    required this.definition,
+  });
 
   @override
   Widget build(BuildContext context) {
