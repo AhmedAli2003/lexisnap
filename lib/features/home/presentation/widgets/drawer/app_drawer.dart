@@ -1,47 +1,24 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lexisnap/features/home/presentation/pages/tags_page.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_tile.dart';
-import 'package:lexisnap/features/home/presentation/widgets/sign_out_dialog.dart';
+import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_title.dart';
+import 'package:lexisnap/features/home/presentation/widgets/drawer/sign_out_tile.dart';
 
-class AppDrawer extends ConsumerWidget {
+class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider)!;
+  Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
-          DrawerHeader(
-            child: Row(
-              children: [
-                CachedNetworkImage(
-                  imageUrl: user.profilePicture,
-                  width: 64,
-                  height: 64,
-                  imageBuilder: (context, imageProvider) => CircleAvatar(
-                    radius: 32,
-                    backgroundImage: imageProvider,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  user.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          const DrawerTitle(),
           const SizedBox(height: 24),
           DrawerTile(
             title: 'Tags',
             icon: Icons.tag_rounded,
-            onTap: () {},
+            onTap: () => _navigateToTags(context),
           ),
           const SizedBox(height: 16),
           DrawerTile(
@@ -62,24 +39,14 @@ class AppDrawer extends ConsumerWidget {
             onTap: () {},
           ),
           const Spacer(),
-          DrawerTile(
-            title: 'Sign Out',
-            icon: Icons.logout_rounded,
-            iconColor: Colors.red,
-            onTap: () => _signOut(context, ref),
-          ),
+          const SignOutTile(),
           const SizedBox(height: 16),
         ],
       ),
     );
   }
 
-  void _signOut(BuildContext context, WidgetRef ref) {
-    showDialog(
-      context: context,
-      builder: (context) => SignOutDialog(signOut: () {
-        ref.read(authControllerProvider.notifier).signOut(context);
-      }),
-    );
+  void _navigateToTags(BuildContext context) {
+    GoRouter.of(context).pushNamed(TagsPage.name);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 
 class DrawerTile extends StatelessWidget {
   final String title;
@@ -21,12 +22,10 @@ class DrawerTile extends StatelessWidget {
         size: 28,
         color: iconColor,
       ),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 18,
-        ),
+      title: AppText(
+        text: title,
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
       ),
       onTap: onTap,
     );

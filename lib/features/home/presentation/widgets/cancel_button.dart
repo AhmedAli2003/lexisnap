@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/models/update_word_request.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
@@ -13,11 +14,9 @@ class CancelButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
       onPressed: () => pop(context, ref),
-      child: const Text(
-        'Cancel',
-        style: TextStyle(
-          color: AppColors.blue,
-        ),
+      child: const AppText(
+        text: 'Cancel',
+        color: AppColors.blue,
       ),
     );
   }
@@ -50,23 +49,30 @@ class CancelButton extends ConsumerWidget {
   }
 }
 
-class CancelBeforeUpdateAlertDialog extends StatelessWidget {
+class CancelBeforeUpdateAlertDialog extends ConsumerWidget {
   const CancelBeforeUpdateAlertDialog({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog.adaptive(
-      title: const Text('Unsaved Changes!'),
-      content: const Text('Are you sure you want to cancel without saving changes!'),
+      title: const AppText(text: 'Unsaved Changes!'),
+      content: const AppText(text: 'Are you sure you want to cancel without saving changes!'),
       actions: [
         TextButton(
           onPressed: () {
+            //TODO: explain what is happening
+            final id = ref.read(wordProvider)!.id;
+            print(id);
+            final word = ref.read(allWordsProvider).firstWhere((word) => word.id == id);
+            print(word.translations);
+            ref.read(wordProvider.notifier).updateWordObject(word.copyWith());
+
             // Cancel without saving changes
             GoRouter.of(context).pop(true);
           },
-          child: const Text(
-            'Cancel',
-            style: TextStyle(color: Colors.red),
+          child: const AppText(
+            text: 'Cancel',
+            color: Colors.red,
           ),
         ),
         TextButton(
@@ -74,9 +80,9 @@ class CancelBeforeUpdateAlertDialog extends StatelessWidget {
             // Save changes before cancelling
             GoRouter.of(context).pop(false);
           },
-          child: const Text(
-            'Save changes',
-            style: TextStyle(color: AppColors.blue),
+          child: const AppText(
+            text: 'Save changes',
+            color: AppColors.blue,
           ),
         ),
       ],

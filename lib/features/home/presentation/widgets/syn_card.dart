@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
 
@@ -26,12 +27,10 @@ class SynCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(8),
-      child: Text(
-        word.word,
-        style: const TextStyle(
-          fontSize: 14,
-          color: AppColors.scaffoldBackgroundColor,
-        ),
+      child: AppText(
+        text: word.word,
+        fontSize: 14,
+        color: AppColors.scaffoldBackgroundColor,
       ),
     );
   }

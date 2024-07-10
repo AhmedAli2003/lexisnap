@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/selected_translations_provider.dart';
 
 class TranslationWidget extends ConsumerWidget {
   final String translation;
+  final bool fromView;
 
   const TranslationWidget({
     super.key,
     required this.translation,
+    this.fromView = false,
   });
 
   void onTap(WidgetRef ref, bool selected) {
@@ -27,7 +30,7 @@ class TranslationWidget extends ConsumerWidget {
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         splashColor: AppColors.blue,
-        onTap: () => onTap(ref, selected),
+        onTap: fromView ? () {} : () => onTap(ref, selected),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           decoration: BoxDecoration(
@@ -42,12 +45,10 @@ class TranslationWidget extends ConsumerWidget {
               end: Alignment.bottomRight,
             ),
           ),
-          child: Text(
-            translation,
+          child: AppText(
+            text: translation,
             textDirection: TextDirection.rtl,
-            style: const TextStyle(
-              fontSize: 16,
-            ),
+            fontSize: 16,
           ),
         ),
       ),

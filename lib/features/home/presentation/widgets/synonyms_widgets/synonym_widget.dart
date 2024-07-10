@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
 import 'package:lexisnap/features/home/presentation/widgets/synonyms_widgets/selected_synonyms_provider.dart';
@@ -14,22 +15,22 @@ class SynonymWidget extends ConsumerWidget {
   });
 
   static const _greenGradient = LinearGradient(
-                  colors: [
-                    AppColors.green,
-                    Color.fromRGBO(121, 196, 126, 0.5),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                );
+    colors: [
+      AppColors.green,
+      Color.fromRGBO(121, 196, 126, 0.5),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
-
-        static const _whiteGradient = LinearGradient(
-                  colors: [
-                    AppColors.white,
-                    Color.fromRGBO(255, 255, 255, 0.75),
-                  ],     begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                );
+  static const _whiteGradient = LinearGradient(
+    colors: [
+      AppColors.white,
+      Color.fromRGBO(255, 255, 255, 0.75),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,12 +45,10 @@ class SynonymWidget extends ConsumerWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.all(8),
-        child: Text(
-          synonym.word,
-          style: const TextStyle(
-            fontSize: 14,
-            color: AppColors.scaffoldBackgroundColor,
-          ),
+        child: AppText(
+          text: synonym.word,
+          fontSize: 14,
+          color: AppColors.scaffoldBackgroundColor,
         ),
       ),
     );

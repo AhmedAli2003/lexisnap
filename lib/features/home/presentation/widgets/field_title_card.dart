@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 
 class FieldTitleCard extends StatelessWidget {
@@ -18,7 +19,7 @@ class FieldTitleCard extends StatelessWidget {
           vertical: 4.0,
           horizontal: 12.0,
         ),
-        child: Text(title),
+        child: AppText(text: title),
       ),
     );
   }

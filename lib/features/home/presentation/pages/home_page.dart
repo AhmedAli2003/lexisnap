@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:lexisnap/features/home/presentation/controllers/tag_controller.dart';
 import 'package:lexisnap/features/home/presentation/pages/create-update-page/create_and_update_word_page.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/app_drawer.dart';
@@ -28,20 +29,26 @@ class HomePage extends ConsumerWidget {
           : words.isEmpty
               ? const StartingWelcomeWidget()
               : SafeArea(
-                  child: CustomScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    slivers: [
-                      SliverAppBar(
-                        title: HomeHeader(name: user.name),
-                      ),
-                      SliverList.builder(
-                        itemCount: words.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: WordTileWidget(ref: ref, word: words[index]),
+                  child: RefreshIndicator.adaptive(
+                    onRefresh: () async {
+                      ref.read(wordControllerProvider.notifier).getAllWords(context, 1);
+                      ref.read(wordControllerProvider.notifier).getWordsOverview(context);
+                      ref.read(tagControllerProvider.notifier).getAllTags(context, 1);
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverAppBar(
+                          title: HomeHeader(name: user.name),
                         ),
-                      ),
-                    ],
+                        SliverList.builder(
+                          itemCount: words.length,
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: WordTileWidget(ref: ref, word: words[index]),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
       floatingActionButton: FloatingActionButton(

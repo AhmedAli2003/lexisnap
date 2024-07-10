@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:lexisnap/core/constants/app_constants.dart';
 import 'package:lexisnap/core/shared/shared_preferences_manager.dart';
+import 'package:lexisnap/core/shared/string_utils.dart';
 
 final ttsProvider = StateNotifierProvider<TtsHandler, bool>(
   (ref) => throw UnimplementedError(),
@@ -29,7 +30,7 @@ class TtsHandler extends StateNotifier<bool> {
     if (pitch != _ref.read(sharedPrefProvider).getSpeechPitch()) {
       await _tts.setPitch(pitch);
     }
-    await _tts.speak(text);
+    await _tts.speak(StringUtils.removeSpecialCharacters(text));
     state = false;
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 
 class BoxTitle extends StatelessWidget {
@@ -12,13 +13,11 @@ class BoxTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: TextStyle(
-        color: color,
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-      ),
+    return AppText(
+      text: title,
+      color: color,
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
     );
   }
 }

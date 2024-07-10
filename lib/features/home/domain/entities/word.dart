@@ -1,11 +1,11 @@
+import 'package:flutter/foundation.dart';
+
 import 'package:lexisnap/features/home/domain/entities/minimal_tag.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
-import 'package:uuid/uuid.dart';
 
 class Word {
   final String id;
-  final String appId;
   final String word;
   final Set<String> definitions;
   final Set<MinimalTag> tags;
@@ -17,7 +17,6 @@ class Word {
 
   Word({
     required this.id,
-    String? appId,
     required this.word,
     required this.definitions,
     required this.tags,
@@ -26,11 +25,10 @@ class Word {
     required this.synonyms,
     required this.opposites,
     required this.note,
-  }) : appId = appId ?? const Uuid().v4();
+  });
 
   Word copyWith({
     String? id,
-    String? appId,
     String? word,
     Set<String>? definitions,
     Set<MinimalTag>? tags,
@@ -42,32 +40,47 @@ class Word {
   }) {
     return Word(
       id: id ?? this.id,
-      appId: appId ?? this.appId,
       word: word ?? this.word,
-      definitions: definitions ?? this.definitions,
-      tags: tags ?? this.tags,
-      translations: translations ?? this.translations,
-      statements: statements ?? this.statements,
-      synonyms: synonyms ?? this.synonyms,
-      opposites: opposites ?? this.opposites,
+      definitions: definitions != null ? {...definitions} : {...this.definitions},
+      tags: tags != null ? {...tags} : {...this.tags},
+      translations: translations != null ? {...translations} : {...this.translations},
+      statements: statements != null ? {...statements} : {...this.statements},
+      synonyms: synonyms != null ? {...synonyms} : {...this.synonyms},
+      opposites: opposites != null ? {...opposites} : {...this.opposites},
       note: note ?? this.note,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Word(id: $id, word: $word, definitions: $definitions, tags: $tags, translations: $translations, statements: $statements, synonyms: $synonyms, opposites: $opposites, note: $note)';
   }
 
   @override
   bool operator ==(covariant Word other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.appId == appId && other.word == word && other.note == note;
+    return other.id == id &&
+        other.word == word &&
+        setEquals(other.definitions, definitions) &&
+        setEquals(other.tags, tags) &&
+        setEquals(other.translations, translations) &&
+        setEquals(other.statements, statements) &&
+        setEquals(other.synonyms, synonyms) &&
+        setEquals(other.opposites, opposites) &&
+        other.note == note;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ appId.hashCode ^ word.hashCode ^ note.hashCode;
-  }
-
-  @override
-  String toString() {
-    return 'Word(id: $id, appId: $appId, word: $word, definitions: $definitions, tags: $tags, translations: $translations, statements: $statements, synonyms: $synonyms, opposites: $opposites, note: $note)';
+    return id.hashCode ^
+        word.hashCode ^
+        definitions.hashCode ^
+        tags.hashCode ^
+        translations.hashCode ^
+        statements.hashCode ^
+        synonyms.hashCode ^
+        opposites.hashCode ^
+        note.hashCode;
   }
 }

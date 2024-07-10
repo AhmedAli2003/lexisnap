@@ -16,6 +16,7 @@ class StartingWelcomeWidget extends StatelessWidget {
             text: const TextSpan(
               children: [
                 TextSpan(
+                  // TODO: Deal with text span
                   text: 'Welcome to ',
                   style: TextStyle(
                     fontSize: 18,

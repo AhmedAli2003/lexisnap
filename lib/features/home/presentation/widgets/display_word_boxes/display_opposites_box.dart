@@ -10,18 +10,20 @@ class DisplayOppositesBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final opposites = ref.watch(wordOppositesProvider);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const BoxTitle(title: 'Opposites', color: Colors.red),
-        const SizedBox(height: 12),
-        Wrap(
-          children: opposites.map((op) => OppositeWidget(opposite: op)).toList(),
-        ),
-        const SizedBox(height: 20),
-      ],
-    );
+    return opposites.isEmpty
+        ? const SizedBox()
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const BoxTitle(title: 'Opposites', color: Colors.red),
+              const SizedBox(height: 12),
+              Wrap(
+                children: opposites.map((op) => OppositeWidget(opposite: op)).toList(),
+              ),
+              const SizedBox(height: 20),
+            ],
+          );
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/mappers/tag_mappers.dart';
 
 import 'package:lexisnap/core/models/create_or_update_tag_request.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
@@ -11,7 +12,13 @@ import 'package:lexisnap/features/home/domain/repositories/tag_repository.dart';
 
 final allTagsProvider = StateProvider<List<MinimalTag>>((ref) => []);
 
-final tagProvider = StateProvider<Tag?>((ref) => null);
+final tagProvider = StateProvider.autoDispose<Tag?>((ref) {
+  final link = ref.keepAlive();
+  Future.delayed(const Duration(milliseconds: 100), () {
+    link.close();
+  });
+  return null;
+});
 
 final tagControllerProvider = StateNotifierProvider<TagController, TagLoadingState>(
   (ref) => TagController(
@@ -38,8 +45,7 @@ class TagController extends StateNotifier<TagLoadingState> {
     either.fold(
       (failure) => showSnackBar(context, failure.message),
       (tags) => _ref.read(allTagsProvider.notifier).update((state) {
-        state.addAll(tags);
-        return state;
+        return tags;
       }),
     );
   }
@@ -60,7 +66,12 @@ class TagController extends StateNotifier<TagLoadingState> {
     state = state.copyWith(createTag: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
-      (tag) => _ref.read(tagProvider.notifier).update((_) => tag),
+      (tag) {
+        _ref.read(tagProvider.notifier).update((_) => tag);
+        _ref.read(allTagsProvider.notifier).update((tags) {
+          return [...tags, tag.toMinimal()];
+        });
+      },
     );
   }
 
@@ -74,23 +85,31 @@ class TagController extends StateNotifier<TagLoadingState> {
     state = state.copyWith(updateTag: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
-      (tag) => _ref.read(tagProvider.notifier).update(
-            (_) => Tag(
-              id: tag.id,
-              name: tag.name,
-              words: {},
-            ),
-          ),
+      (tag) {
+        _ref.read(tagProvider.notifier).update((_) => tag.toTag());
+        _ref.read(allTagsProvider.notifier).update((tags) {
+          final index = tags.indexWhere((t) => t.id == tag.id);
+          tags[index] = tag;
+          return [...tags];
+        });
+      },
     );
   }
 
   void deleteTag(BuildContext context, String id) async {
     state = state.copyWith(getAllTags: true);
     final either = await _repository.deleteTag(id);
+    _ref.read(allTagsProvider.notifier).update((tags) {
+      final index = tags.indexWhere((t) => t.id == id);
+      tags.removeAt(index);
+      return [...tags];
+    });
     state = state.copyWith(getAllTags: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
-      (_) => _ref.read(tagProvider.notifier).update((_) => null),
+      (_) {
+        _ref.read(tagProvider.notifier).update((_) => null);
+      },
     );
   }
 }

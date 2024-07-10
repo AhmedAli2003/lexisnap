@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
 
@@ -13,19 +14,17 @@ class StatementWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            statement.text,
-            style: const TextStyle(fontSize: 16),
+          AppText(
+            text: statement.text,
+            fontSize: 16,
           ),
           const SizedBox(height: 4),
           if (statement.translation.isNotEmpty)
-            Text(
-              statement.translation,
+            AppText(
+              text: statement.translation,
               textDirection: TextDirection.rtl,
-              style: const TextStyle(
-                fontSize: 16,
-                color: AppColors.yellow,
-              ),
+              fontSize: 16,
+              color: AppColors.yellow,
             ),
         ],
       ),

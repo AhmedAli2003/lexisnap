@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/word.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
@@ -30,27 +31,23 @@ class WordTileWidget extends StatelessWidget {
       ),
       title: Row(
         children: [
-          Text(
-            word.word,
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-            ),
+          AppText(
+            text: word.word,
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
           ),
           if (word.translations.isNotEmpty) const Spacer(),
           if (word.translations.isNotEmpty)
-            Text(
-              word.translations.first,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-                color: AppColors.purple,
-                fontSize: 18,
-              ),
+            AppText(
+              text: word.translations.first,
+              fontWeight: FontWeight.normal,
+              color: AppColors.purple,
+              fontSize: 18,
             ),
         ],
       ),
-      subtitle: Text(
-        subtitle ?? '',
+      subtitle: AppText(
+        text: subtitle ?? '',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -59,7 +56,8 @@ class WordTileWidget extends StatelessWidget {
   }
 
   void onTap(BuildContext context) {
-    ref.read(wordProvider.notifier).updateWordObject(word);
+    // TODO: explain
+    ref.read(wordProvider.notifier).updateWordObject(word.copyWith());
     GoRouter.of(context).pushNamed(ViewWordPage.name);
   }
 

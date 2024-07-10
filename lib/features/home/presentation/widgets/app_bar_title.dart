@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 
 class AppBarTitle extends StatelessWidget {
   final String title;
@@ -9,11 +10,9 @@ class AppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontWeight: FontWeight.w700,
-      ),
+    return AppText(
+      text: title,
+      fontWeight: FontWeight.w700,
     );
   }
 }

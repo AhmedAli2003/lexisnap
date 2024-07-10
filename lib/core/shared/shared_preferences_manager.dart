@@ -65,4 +65,12 @@ class SharedPreferencesManager {
 
     return difference;
   }
+
+  Future<bool> setTextFamily(String textFamily) async {
+    return await _sharedPreferences.setString(AppConstants.textFamilyKey, textFamily);
+  }
+
+  String getTextFamily() {
+    return _sharedPreferences.getString(AppConstants.textFamilyKey) ?? AppConstants.defaultTextFamily;
+  }
 }

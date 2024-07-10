@@ -11,18 +11,20 @@ class DisplayTagsBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tags = ref.watch(wordTagsProvider);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const BoxTitle(title: 'Tags', color: AppColors.pink),
-        const SizedBox(height: 12),
-        Wrap(
-          children: tags.map((tag) => TagWidget(tag: tag)).toList(),
-        ),
-        const SizedBox(height: 20),
-      ],
-    );
+    return tags.isEmpty
+        ? const SizedBox()
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const BoxTitle(title: 'Tags', color: AppColors.pink),
+              const SizedBox(height: 12),
+              Wrap(
+                children: tags.map((tag) => TagWidget(tag: tag)).toList(),
+              ),
+              const SizedBox(height: 20),
+            ],
+          );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
 
@@ -20,12 +21,10 @@ class SignInButton extends ConsumerWidget {
           'assets/images/google.png',
           width: 35,
         ),
-        label: const Text(
-          'Continue with Google',
-          style: TextStyle(
-            fontSize: 18,
-            color: AppColors.white,
-          ),
+        label: const AppText(
+          text: 'Continue with Google',
+          color: AppColors.white,
+          fontSize: 18,
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.blue,

@@ -21,6 +21,7 @@ class CreateOrUpdateWordPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(wordProvider);
     return PopScope(
       canPop: !ref.watch(wordChangesProvider),
       onPopInvoked: (didPop) async {

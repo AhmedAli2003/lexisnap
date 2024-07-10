@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/shared/string_utils.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
 import 'package:lexisnap/features/home/presentation/widgets/box_title.dart';
@@ -38,12 +40,10 @@ class DisplayDifinitionsBox extends ConsumerWidget {
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
-                  child: SelectableText(
-                    definition,
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 16,
-                    ),
+                  child: AppSelectableText(
+                    text: StringUtils.capitalize(definition),
+                    color: AppColors.white,
+                    fontSize: 16,
                   ),
                 ),
               ),

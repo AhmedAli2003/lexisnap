@@ -77,11 +77,9 @@ class _CreateOrUpdateStatementColumnState extends ConsumerState<CreateOrUpdateSt
               Center(
                 child: ElevatedButton(
                   onPressed: () => save(state),
-                  child: const Text(
-                    'Save',
-                    style: TextStyle(
-                      color: AppColors.blue,
-                    ),
+                  child: const AppText(
+                    text: 'Save',
+                    color: AppColors.blue,
                   ),
                 ),
               ),

@@ -40,7 +40,7 @@ class _CreatePageScaffoldState extends ConsumerState<CreatePageScaffold> {
         leading: const CancelButton(),
         leadingWidth: 72,
         centerTitle: true,
-        title: const Text(''),
+        title: const AppText(text: 'Add a new word'),
       ),
       body: ref.watch(wordControllerProvider).createWord
           ? const Loading() // tloading while the word is creating
@@ -68,6 +68,7 @@ class _CreatePageScaffoldState extends ConsumerState<CreatePageScaffold> {
     // Check if the word creation is successful
     if (word == null) {
       // The word creation failed, so we need to pop to home page
+      // ignore: use_build_context_synchronously
       GoRouter.of(context).pop();
     }
     // After the word is created, update page scaffold will appear

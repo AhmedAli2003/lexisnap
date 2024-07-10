@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lexisnap/core/shared/string_utils.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 
 class DefinitionWidget extends StatelessWidget {
@@ -13,13 +14,11 @@ class DefinitionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Text(
-        '- ${StringUtils.capitalize(definition)}',
-        style: const TextStyle(
-          color: AppColors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
+      child: AppText(
+        text: '- ${StringUtils.capitalize(definition)}',
+        color: AppColors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
       ),
     );
   }

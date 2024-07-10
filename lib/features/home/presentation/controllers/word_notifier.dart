@@ -4,7 +4,6 @@ import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
 import 'package:lexisnap/features/home/domain/entities/word.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier_transaction_result.dart';
-import 'package:uuid/uuid.dart';
 
 final wordChangesProvider = StateProvider.autoDispose<bool>((ref) => false);
 
@@ -28,7 +27,9 @@ final wordTextProvider = Provider.autoDispose<String>((ref) {
 });
 
 final wordDefinitionsProvider = Provider.autoDispose<Set<String>>((ref) {
-  return ref.read(wordProvider.select((word) => word?.definitions ?? {}));
+  return ref.watch(wordProvider.select((word) {
+    return {...?word?.definitions};
+  }));
 });
 
 final wordTranslationsProvider = Provider.autoDispose<Set<String>>((ref) {
@@ -63,13 +64,12 @@ class WordNotifier extends StateNotifier<Word?> {
   })  : _ref = ref,
         super(state);
 
-  final _uuid = const Uuid();
+  // final _uuid = const Uuid();
 
-  String get _generateId => _uuid.v4();
+  // String get _generateId => _uuid.v4();
 
   // Update the state (from null to object or from object to null)
   void updateWordObject(Word? word) {
-    print(word);
     state = word;
   }
 
@@ -88,7 +88,8 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final added = state!.translations.add(translation);
     if (added) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(translations: {...state!.translations});
+      print(state);
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -100,18 +101,20 @@ class WordNotifier extends StateNotifier<Word?> {
       return WordNotifierTransactionResult.stateIsNull();
     }
     state!.translations.removeAll(translationsToDelete);
-    state = state!.copyWith(appId: _generateId);
+    state = state!.copyWith(translations: {...state!.translations});
     _ref.read(wordChangesProvider.notifier).state = true;
     return WordNotifierTransactionResult.success();
   }
 
   WordNotifierTransactionResult addDefinition(String definition) {
+    print('HERE 2');
     if (state == null) {
+      print('HERE 3');
       return WordNotifierTransactionResult.stateIsNull();
     }
     final added = state!.definitions.add(definition);
     if (added) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(definitions: {...state!.definitions});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -123,11 +126,10 @@ class WordNotifier extends StateNotifier<Word?> {
       return WordNotifierTransactionResult.stateIsNull();
     }
     // Delete the old definition and add the new definition
-
     state!.definitions
       ..remove(oldDefinition)
       ..add(newDefinition);
-    state = state!.copyWith(appId: _generateId);
+    state = state!.copyWith(definitions: {...state!.definitions});
     _ref.read(wordChangesProvider.notifier).state = true;
     return WordNotifierTransactionResult.success();
   }
@@ -138,7 +140,7 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final removed = state!.definitions.remove(definition);
     if (removed) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(definitions: {...state!.definitions});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -151,7 +153,7 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final added = state!.statements.add(statement);
     if (added) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(statements: {...state!.statements});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -180,7 +182,7 @@ class WordNotifier extends StateNotifier<Word?> {
     );
     state!.statements.remove(statementToUpdate);
     state!.statements.add(updated);
-    state = state!.copyWith(appId: _generateId);
+    state = state!.copyWith(statements: {...state!.statements});
     _ref.read(wordChangesProvider.notifier).state = true;
     return WordNotifierTransactionResult.success();
   }
@@ -192,7 +194,7 @@ class WordNotifier extends StateNotifier<Word?> {
     final statement = state!.statements.firstWhere((s) => s.id == id);
     final removed = state!.statements.remove(statement);
     if (removed) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(statements: {...state!.statements});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -205,7 +207,7 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final added = state!.tags.add(tag);
     if (added) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(tags: {...state!.tags});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -218,7 +220,7 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final removed = state!.tags.remove(tag);
     if (removed) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(tags: {...state!.tags});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -231,7 +233,7 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final added = state!.synonyms.add(word);
     if (added) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(synonyms: {...state!.synonyms});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -244,7 +246,7 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final removed = state!.synonyms.remove(word);
     if (removed) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(synonyms: {...state!.synonyms});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -257,7 +259,7 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final added = state!.opposites.add(word);
     if (added) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(opposites: {...state!.opposites});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -270,7 +272,7 @@ class WordNotifier extends StateNotifier<Word?> {
     }
     final removed = state!.opposites.remove(word);
     if (removed) {
-      state = state!.copyWith(appId: _generateId);
+      state = state!.copyWith(opposites: {...state!.opposites});
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }

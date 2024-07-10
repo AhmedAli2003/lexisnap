@@ -11,19 +11,20 @@ class DisplaySynonymsBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final synonyms = ref.watch(wordSynonymsProvider);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const BoxTitle(title: 'Synonyms', color: AppColors.green),
-        const SizedBox(height: 12),
-        Wrap(
-          children: synonyms.map((s) => SynonymWidget(synonym: s)).toList(),
-        ),
-        const SizedBox(height: 20),
-      ],
-    );
+    return synonyms.isEmpty
+        ? const SizedBox()
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const BoxTitle(title: 'Synonyms', color: AppColors.green),
+              const SizedBox(height: 12),
+              Wrap(
+                children: synonyms.map((s) => SynonymWidget(synonym: s)).toList(),
+              ),
+              const SizedBox(height: 20),
+            ],
+          );
   }
 }
-

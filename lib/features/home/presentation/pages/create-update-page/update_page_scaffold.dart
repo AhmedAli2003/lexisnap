@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/features/home/presentation/widgets/cancel_button.dart';
 import 'package:lexisnap/features/home/presentation/widgets/definitions_widgets/definitions_box.dart';
 import 'package:lexisnap/features/home/presentation/widgets/opposites_widgets/opposites_box.dart';
@@ -19,7 +20,7 @@ class UpdatePageScaffold extends StatelessWidget {
         leading: const CancelButton(),
         leadingWidth: 72,
         centerTitle: true,
-        title: const Text('Wealth the word'),
+        title: const AppText(text: 'Wealth the word'),
         actions: const [SaveWordIconButton()],
       ),
       body: const SingleChildScrollView(

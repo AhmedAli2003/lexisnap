@@ -27,7 +27,7 @@ final searchWordsProvider = StateProvider.autoDispose.family<List<MinimalWord>, 
   },
 );
 
-final allWordsProvider = StateProvider<List<Word>>((_) => []);
+final allWordsProvider = StateProvider<List<Word>>((ref) => []);
 
 final wordControllerProvider = StateNotifierProvider<WordController, WordLoadingState>(
   (ref) => WordController(
@@ -67,8 +67,7 @@ class WordController extends StateNotifier<WordLoadingState> {
     either.fold(
       (failure) => showSnackBar(context, failure.message),
       (words) => _ref.read(allWordsProvider.notifier).update((state) {
-        state.addAll(words);
-        return state;
+        return words;
       }),
     );
   }
@@ -100,7 +99,7 @@ class WordController extends StateNotifier<WordLoadingState> {
       },
       (word) {
         _ref.read(wordProvider.notifier).updateWordObject(word);
-        _ref.read(allWordsProvider.notifier).update((words) => [word, ...words]);
+        _ref.read(allWordsProvider.notifier).update((words) => [word.copyWith(), ...words]);
         _ref.read(wordsOverviewProvider.notifier).update((words) => [word.toMinimal(), ...words]);
         return word;
       },
@@ -121,9 +120,25 @@ class WordController extends StateNotifier<WordLoadingState> {
         return null;
       },
       (word) {
-        _ref.read(wordProvider.notifier).updateWordObject(word);
+        _ref.read(wordProvider.notifier).updateWordObject(word.copyWith());
         _ref.read(wordChangesProvider.notifier).state = false;
-        // _ref.read(provider)
+
+        // Update the all words
+        _ref.read(allWordsProvider.notifier).update((words) {
+          final index = words.indexWhere((w) => w.id == word.id);
+          words[index] = word.copyWith();
+          return [...words];
+        });
+
+        // Update words overview, if the old word text equals the new word text, then no update needed
+        _ref.read(wordsOverviewProvider.notifier).update((words) {
+          final index = words.indexWhere((w) => w.id == word.id);
+          if (words[index].word == word.word) {
+            return words;
+          }
+          words[index] = word.toMinimal();
+          return [...words];
+        });
         return word;
       },
     );
@@ -131,11 +146,27 @@ class WordController extends StateNotifier<WordLoadingState> {
 
   Future<void> deleteWord(BuildContext context, String id) async {
     state = state.copyWith(deleteWord: true);
+    final word = _ref.read(wordProvider);
+    if (word == null) {
+      return;
+    }
+    _ref.read(allWordsProvider.notifier).update((words) {
+      final index = words.indexWhere((w) => w.id == word.id);
+      words.removeAt(index);
+      return [...words];
+    });
+    _ref.read(wordsOverviewProvider.notifier).update((words) {
+      final index = words.indexWhere((w) => w.id == word.id);
+      words.removeAt(index);
+      return [...words];
+    });
     final either = await _repository.deleteWord(id);
     state = state.copyWith(deleteWord: false);
     either.fold(
       (failure) => showSnackBar(context, failure.message),
-      (word) => _ref.read(wordProvider.notifier).updateWordObject(null),
+      (_) {
+        _ref.read(wordProvider.notifier).updateWordObject(null);
+      },
     );
   }
 }

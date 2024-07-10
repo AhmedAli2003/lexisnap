@@ -5,7 +5,10 @@ import 'package:lexisnap/core/shared/splash_screen.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:lexisnap/features/auth/presentation/pages/auth_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/create-update-page/create_and_update_word_page.dart';
+import 'package:lexisnap/features/home/presentation/pages/create-update-page/update_word_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/home_page.dart';
+import 'package:lexisnap/features/home/presentation/pages/tag_details_page.dart';
+import 'package:lexisnap/features/home/presentation/pages/tags_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/view_word_page.dart';
 import 'package:lexisnap/features/settings/pages/settings_page.dart';
 
@@ -75,6 +78,66 @@ class AppRouter {
                 child: child,
               ),
             ),
+            routes: [
+              GoRoute(
+                path: UpdateWordPage.path,
+                name: UpdateWordPage.name,
+                pageBuilder: (context, state) {
+                  return CustomTransitionPage(
+                    child: const UpdateWordPage(),
+                    transitionsBuilder: (
+                      context,
+                      animation,
+                      secondaryAnimation,
+                      child,
+                    ) =>
+                        SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1, 0),
+                        end: const Offset(0, 0),
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+          GoRoute(
+            path: TagsPage.path,
+            name: TagsPage.name,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const TagsPage(),
+              transitionsBuilder: (
+                context,
+                animation,
+                secondaryAnimation,
+                child,
+              ) =>
+                  FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            ),
+            routes: [
+              GoRoute(
+                path: TagDetailsPage.path,
+                name: TagDetailsPage.name,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const TagDetailsPage(),
+                  transitionsBuilder: (
+                    context,
+                    animation,
+                    secondaryAnimation,
+                    child,
+                  ) =>
+                      FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: SettingsPage.path,

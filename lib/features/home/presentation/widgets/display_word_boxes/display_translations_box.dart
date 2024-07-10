@@ -27,7 +27,7 @@ class DisplayTranslationsBox extends ConsumerWidget {
                 child: Wrap(
                   children: translations
                       .map(
-                        (t) => TranslationWidget(translation: t),
+                        (t) => TranslationWidget(translation: t, fromView: true),
                       )
                       .toList(),
                 ),

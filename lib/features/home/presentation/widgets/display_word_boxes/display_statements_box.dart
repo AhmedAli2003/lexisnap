@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lexisnap/core/shared/string_utils.dart';
+import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
@@ -55,28 +55,26 @@ class DisplayStatementContainer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SelectableText(
-                  statement.text,
-                  style: const TextStyle(fontSize: 16),
+                AppSelectableText(
+                  text: statement.text,
+                  fontSize: 16,
                 ),
                 if (statement.translation.isNotEmpty)
                   Align(
                     alignment: Alignment.centerRight,
-                    child: SelectableText(
-                      statement.translation,
+                    child: AppSelectableText(
+                      text: statement.translation,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: AppColors.yellow,
-                      ),
+                      fontSize: 16,
+                      color: AppColors.yellow,
                     ),
                   ),
               ],
             ),
           ),
         ),
-        SpeakIcon(text: StringUtils.removeSpecialCharacters(statement.text)),
+        SpeakIcon(text: statement.text),
       ],
     );
   }

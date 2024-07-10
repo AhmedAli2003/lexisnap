@@ -45,3 +45,11 @@ extension ModelToMinimalTag on MinimalTagModel {
     return MinimalTag(id: id!, name: name!);
   }
 }
+
+extension TagToMinimal on Tag {
+  MinimalTag toMinimal() => MinimalTag(id: id, name: name);
+}
+
+extension MinimalTagToTag on MinimalTag {
+  Tag toTag() => Tag(id: id, name: name, words: const {});
+}
