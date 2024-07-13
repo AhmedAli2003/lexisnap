@@ -18,7 +18,7 @@ class UpdatePageScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const CancelButton(),
-        leadingWidth: 72,
+        leadingWidth: 92,
         centerTitle: true,
         title: const AppText(text: 'Wealth the word'),
         actions: const [SaveWordIconButton()],

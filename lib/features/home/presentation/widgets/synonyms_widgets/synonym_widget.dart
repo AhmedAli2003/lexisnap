@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lexisnap/core/router/word_navigator_observer.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
+import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
+import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
+import 'package:lexisnap/features/home/presentation/pages/view_word_page.dart';
 import 'package:lexisnap/features/home/presentation/widgets/synonyms_widgets/selected_synonyms_provider.dart';
 
 class SynonymWidget extends ConsumerWidget {
@@ -36,7 +41,7 @@ class SynonymWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selected = ref.watch(selectedSynonymsProvider).contains(synonym);
     return GestureDetector(
-      onTap: fromDialog ? () => select(ref, selected) : navigate,
+      onTap: fromDialog ? () => select(ref, selected) : () => navigate(context, ref, synonym.id),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         margin: const EdgeInsets.all(4),
@@ -74,7 +79,13 @@ class SynonymWidget extends ConsumerWidget {
     }
   }
 
-  void navigate() {
-    //TODO: navigate to the word page
+  void navigate(BuildContext context, WidgetRef ref, String id) {
+    final oldWordId = ref.read(wordProvider)!.id;
+    ref.read(wordPagesStackProvider.notifier).update((state) => [...state, oldWordId]);
+    final word = ref.read(allWordsProvider).firstWhere((w) => w.id == id);
+    Future.delayed(Duration.zero, () {
+      ref.read(wordProvider.notifier).updateWordObject(word.copyWith());
+    });
+    GoRouter.of(context).pushNamed(ViewWordPage.name);
   }
 }

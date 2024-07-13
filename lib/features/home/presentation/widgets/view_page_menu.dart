@@ -44,7 +44,6 @@ class ViewPageMenu extends ConsumerWidget {
   }
 
   void navigateToUpdate(BuildContext context, WidgetRef ref) {
-    //TODO: Explain
     final word = ref.read(wordProvider)!;
     ref.read(selectedTagsProvider.notifier).addAll(word.tags);
     ref.read(selectedSynonymsProvider.notifier).addAll(word.synonyms);

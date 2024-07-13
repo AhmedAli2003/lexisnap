@@ -4,6 +4,7 @@ import 'package:lexisnap/features/home/presentation/pages/tags_page.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_tile.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_title.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/sign_out_tile.dart';
+import 'package:lexisnap/features/settings/pages/settings_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -22,14 +23,14 @@ class AppDrawer extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           DrawerTile(
-            title: 'Our Extension !!',
-            icon: Icons.extension_rounded,
-            onTap: () {},
+            title: 'Change App Font',
+            icon: Icons.font_download_rounded,
+            onTap: () => _navigateToSettings(context),
           ),
           const SizedBox(height: 16),
           DrawerTile(
-            title: 'Settings',
-            icon: Icons.settings_rounded,
+            title: 'Our Extension !!',
+            icon: Icons.extension_rounded,
             onTap: () {},
           ),
           const SizedBox(height: 16),
@@ -48,5 +49,9 @@ class AppDrawer extends StatelessWidget {
 
   void _navigateToTags(BuildContext context) {
     GoRouter.of(context).pushNamed(TagsPage.name);
+  }
+
+  void _navigateToSettings(BuildContext context) {
+    GoRouter.of(context).pushNamed(SettingsPage.name);
   }
 }

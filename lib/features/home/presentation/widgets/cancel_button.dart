@@ -60,11 +60,8 @@ class CancelBeforeUpdateAlertDialog extends ConsumerWidget {
       actions: [
         TextButton(
           onPressed: () {
-            //TODO: explain what is happening
             final id = ref.read(wordProvider)!.id;
-            print(id);
             final word = ref.read(allWordsProvider).firstWhere((word) => word.id == id);
-            print(word.translations);
             ref.read(wordProvider.notifier).updateWordObject(word.copyWith());
 
             // Cancel without saving changes

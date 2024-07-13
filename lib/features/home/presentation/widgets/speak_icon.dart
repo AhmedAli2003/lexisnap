@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/shared/logic.dart';
 import 'package:lexisnap/core/shared/tts_provider.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/settings/controllers/settings_controller.dart';
@@ -24,7 +25,7 @@ class SpeakIcon extends ConsumerWidget {
           : _speak(
               ref: ref,
               text: text,
-              rate: ref.read(settingsControllerProvider).getSpeechRate(),
+              rate: convertSpeedToRate(ref.read(settingsControllerProvider).getSpeechRate()),
               pitch: ref.read(settingsControllerProvider).getSpeechPitch(),
             ),
       icon: Icon(
@@ -41,7 +42,7 @@ class SpeakIcon extends ConsumerWidget {
     required double rate,
     required double pitch,
   }) {
-    ref.read(ttsProvider.notifier).speak(text: text);
+    ref.read(ttsProvider.notifier).speak(text: text, pitch: pitch, speed: rate);
   }
 
   void _stop({

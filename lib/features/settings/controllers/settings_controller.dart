@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexisnap/core/shared/logic.dart';
 import 'package:lexisnap/core/shared/shared_preferences_manager.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/core/theme/text-styles/delius.dart';
@@ -24,8 +25,8 @@ class SettingsController {
     required Ref ref,
   }) : _ref = ref;
 
-  Future<void> setSpeechRate(BuildContext context, double rate) async {
-    final success = await _ref.read(sharedPrefProvider).setSpeechRate(rate);
+  Future<void> setSpeechRate(BuildContext context, double speed) async {
+    final success = await _ref.read(sharedPrefProvider).setSpeechRate(convertSpeedToRate(speed));
     if (!success) {
       Future.delayed(Duration.zero, () {
         showSnackBar(context, 'Error while changing the speed rate, try again!');
@@ -52,7 +53,8 @@ class SettingsController {
   }
 
   double getSpeechRate() {
-    return _ref.read(sharedPrefProvider).getSpeechRate();
+    final value = convertRateToSpeed(_ref.read(sharedPrefProvider).getSpeechRate());
+    return value;
   }
 
   double getSpeechPitch() {
@@ -66,6 +68,7 @@ class SettingsController {
   Future<void> setTextFamily({required BuildContext context, required TextFamily textFamily}) async {
     final success = await _ref.read(sharedPrefProvider).setTextFamily(textFamily.name);
     if (!success) {
+      // ignore: use_build_context_synchronously
       showSnackBar(context, 'Error while changing the pitch, try again!');
     }
   }

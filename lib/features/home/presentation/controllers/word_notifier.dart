@@ -8,6 +8,7 @@ import 'package:lexisnap/features/home/presentation/controllers/word_notifier_tr
 final wordChangesProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 final wordProvider = StateNotifierProvider.autoDispose<WordNotifier, Word?>(
+  name: 'wordProvider',
   (ref) {
     // This is a milliseconds time between loading and build the update word scaffold
     // after we create a new word, the create word method in word controller will
@@ -89,7 +90,6 @@ class WordNotifier extends StateNotifier<Word?> {
     final added = state!.translations.add(translation);
     if (added) {
       state = state!.copyWith(translations: {...state!.translations});
-      print(state);
       _ref.read(wordChangesProvider.notifier).state = true;
       return WordNotifierTransactionResult.success();
     }
@@ -107,9 +107,7 @@ class WordNotifier extends StateNotifier<Word?> {
   }
 
   WordNotifierTransactionResult addDefinition(String definition) {
-    print('HERE 2');
     if (state == null) {
-      print('HERE 3');
       return WordNotifierTransactionResult.stateIsNull();
     }
     final added = state!.definitions.add(definition);

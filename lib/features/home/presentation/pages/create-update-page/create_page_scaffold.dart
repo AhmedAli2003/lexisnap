@@ -38,7 +38,7 @@ class _CreatePageScaffoldState extends ConsumerState<CreatePageScaffold> {
     return Scaffold(
       appBar: AppBar(
         leading: const CancelButton(),
-        leadingWidth: 72,
+        leadingWidth: 92,
         centerTitle: true,
         title: const AppText(text: 'Add a new word'),
       ),

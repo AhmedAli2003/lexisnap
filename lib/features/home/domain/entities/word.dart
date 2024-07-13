@@ -4,7 +4,7 @@ import 'package:lexisnap/features/home/domain/entities/minimal_tag.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
 
-class Word {
+class Word implements Comparable<Word> {
   final String id;
   final String word;
   final Set<String> definitions;
@@ -82,5 +82,10 @@ class Word {
         synonyms.hashCode ^
         opposites.hashCode ^
         note.hashCode;
+  }
+
+  @override
+  int compareTo(Word other) {
+    return word.compareTo(other.word);
   }
 }

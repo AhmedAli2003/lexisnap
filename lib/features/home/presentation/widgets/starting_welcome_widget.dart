@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
+import 'package:lexisnap/core/theme/text-styles/poppins.dart';
 
 class StartingWelcomeWidget extends StatelessWidget {
   const StartingWelcomeWidget({
@@ -13,12 +14,11 @@ class StartingWelcomeWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: RichText(
-            text: const TextSpan(
+            text: TextSpan(
               children: [
                 TextSpan(
-                  // TODO: Deal with text span
                   text: 'Welcome to ',
-                  style: TextStyle(
+                  style: poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: AppColors.white,
@@ -26,7 +26,7 @@ class StartingWelcomeWidget extends StatelessWidget {
                 ),
                 TextSpan(
                   text: 'LexiSnap!',
-                  style: TextStyle(
+                  style: poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: AppColors.blue,
@@ -34,7 +34,7 @@ class StartingWelcomeWidget extends StatelessWidget {
                 ),
                 TextSpan(
                   text: ' Start your journey to mastering new vocabulary by adding your first word.',
-                  style: TextStyle(
+                  style: poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: AppColors.white,

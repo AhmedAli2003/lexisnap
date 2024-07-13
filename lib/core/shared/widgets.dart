@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/features/settings/controllers/settings_controller.dart';
+import 'package:lexisnap/features/settings/pages/settings_page.dart';
 
 class ErrorText extends StatelessWidget {
   final String text;
@@ -70,15 +71,16 @@ class AppText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(fontFamilyProvider);
     return Text(
       text,
       style: ref.read(settingsControllerProvider).getTextStyle(
-        color: color,
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        wordSpacing: wordSpacing,
-        letterSpacing: letterSpacing,
-      ),
+            color: color,
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            wordSpacing: wordSpacing,
+            letterSpacing: letterSpacing,
+          ),
       textAlign: textAlign,
       textDirection: textDirection,
       maxLines: maxLines,
@@ -112,15 +114,16 @@ class AppSelectableText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(fontFamilyProvider);
     return SelectableText(
       text,
       style: ref.read(settingsControllerProvider).getTextStyle(
-        color: color,
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        wordSpacing: wordSpacing,
-        letterSpacing: letterSpacing,
-      ),
+            color: color,
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            wordSpacing: wordSpacing,
+            letterSpacing: letterSpacing,
+          ),
       textAlign: textAlign,
       textDirection: textDirection,
       maxLines: maxLines,

@@ -56,7 +56,6 @@ class WordTileWidget extends StatelessWidget {
   }
 
   void onTap(BuildContext context) {
-    // TODO: explain
     ref.read(wordProvider.notifier).updateWordObject(word.copyWith());
     GoRouter.of(context).pushNamed(ViewWordPage.name);
   }

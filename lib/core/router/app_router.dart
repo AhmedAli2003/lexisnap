@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexisnap/core/router/word_navigator_observer.dart';
 import 'package:lexisnap/core/shared/splash_screen.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:lexisnap/features/auth/presentation/pages/auth_page.dart';
@@ -29,6 +30,9 @@ class AppRouter {
 
   late final _router = GoRouter(
     initialLocation: SplashScreen.path,
+    observers: [
+      WordNavigatorObserver(_ref),
+    ],
     routes: [
       GoRoute(
         path: SplashScreen.path,
@@ -49,6 +53,7 @@ class AppRouter {
             path: CreateOrUpdateWordPage.path,
             name: CreateOrUpdateWordPage.name,
             pageBuilder: (context, state) => CustomTransitionPage(
+              name: CreateOrUpdateWordPage.name,
               child: const CreateOrUpdateWordPage(),
               transitionsBuilder: (
                 context,
@@ -66,6 +71,7 @@ class AppRouter {
             path: ViewWordPage.path,
             name: ViewWordPage.name,
             pageBuilder: (context, state) => CustomTransitionPage(
+              name: ViewWordPage.name,
               child: const ViewWordPage(),
               transitionsBuilder: (
                 context,
@@ -84,6 +90,7 @@ class AppRouter {
                 name: UpdateWordPage.name,
                 pageBuilder: (context, state) {
                   return CustomTransitionPage(
+                    name: UpdateWordPage.name,
                     child: const UpdateWordPage(),
                     transitionsBuilder: (
                       context,
@@ -107,6 +114,7 @@ class AppRouter {
             path: TagsPage.path,
             name: TagsPage.name,
             pageBuilder: (context, state) => CustomTransitionPage(
+              name: TagsPage.name,
               child: const TagsPage(),
               transitionsBuilder: (
                 context,
@@ -124,6 +132,7 @@ class AppRouter {
                 path: TagDetailsPage.path,
                 name: TagDetailsPage.name,
                 pageBuilder: (context, state) => CustomTransitionPage(
+                  name: TagDetailsPage.name,
                   child: const TagDetailsPage(),
                   transitionsBuilder: (
                     context,
@@ -143,6 +152,7 @@ class AppRouter {
             path: SettingsPage.path,
             name: SettingsPage.name,
             pageBuilder: (context, state) => CustomTransitionPage(
+              name: SettingsPage.name,
               child: const SettingsPage(),
               transitionsBuilder: (
                 context,

@@ -15,7 +15,8 @@ class DeleteTagDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog.adaptive(
-      title: const Text('Are you sure?'),
+      title: const AppText(text: 'Delete the tag'),
+      content: const AppText(text: 'Are you sure you want to delete the tag?'),
       actions: [
         TextButton(
           onPressed: () {

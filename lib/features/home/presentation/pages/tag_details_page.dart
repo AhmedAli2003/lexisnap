@@ -60,8 +60,10 @@ class TagDetailsPage extends ConsumerWidget {
                               return;
                             }
                             if (deleted) {
+                              // ignore: use_build_context_synchronously
                               showSnackBar(context,
                                   'Tag deleted successfully.\nRefresh the home page to see the latest updates.');
+                              // ignore: use_build_context_synchronously
                               GoRouter.of(context).pop();
                             }
                           },
