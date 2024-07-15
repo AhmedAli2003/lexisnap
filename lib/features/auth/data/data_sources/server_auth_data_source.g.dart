@@ -13,7 +13,7 @@ class _ServerAuthDataSource implements ServerAuthDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.9:3000/api/v1/auth';
+    baseUrl ??= 'https://lexisnap.onrender.com/api/v1/auth';
   }
 
   final Dio _dio;
@@ -21,28 +21,30 @@ class _ServerAuthDataSource implements ServerAuthDataSource {
   String? baseUrl;
 
   @override
-  Future<AuthApiResponse<AppUserModel>> googleSignIn({required AuthRequestBody body}) async {
+  Future<AuthApiResponse<AppUserModel>> googleSignIn(
+      {required AuthRequestBody body}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<AuthApiResponse<AppUserModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AuthApiResponse<AppUserModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/google-sign-in',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+            .compose(
+              _dio.options,
+              '/google-sign-in',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = AuthApiResponse<AppUserModel>.fromJson(
       _result.data!,
       (json) => AppUserModel.fromJson(json as Map<String, dynamic>),
@@ -52,7 +54,8 @@ class _ServerAuthDataSource implements ServerAuthDataSource {
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
         requestOptions.responseType = ResponseType.plain;
       } else {

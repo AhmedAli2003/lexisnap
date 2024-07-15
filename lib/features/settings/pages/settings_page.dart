@@ -40,7 +40,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: TextFamily.values.map((textFamily) {
             return RadioListTile<TextFamily>(

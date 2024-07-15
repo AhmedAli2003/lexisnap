@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/router/word_navigator_observer.dart';
+import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_tag.dart';
@@ -80,8 +81,15 @@ class TagWidget extends ConsumerWidget {
   }
 
   void navigate(BuildContext context, WidgetRef ref, String id) {
+    final tag = ref.read(allTagsProvider).firstWhere(
+          (t) => t.id == id,
+          orElse: () => const MinimalTag.empty(),
+        );
+    if (tag.isEmpty) {
+      showSnackBar(context, 'This tag no longer exists, it may have been removed.');
+      return;
+    }
     ref.read(tagPagesStackProvider.notifier).update((state) => [...state, id]);
-    final tag = ref.read(allTagsProvider).firstWhere((t) => t.id == id);
     ref.read(tagProvider.notifier).update(
           (state) => Tag(
             id: tag.id,

@@ -13,6 +13,14 @@ class Tag {
     required this.words,
   });
 
+  const Tag.empty({
+    this.id = '',
+    this.name = '',
+    this.words = const {},
+  });
+
+  bool get isEmpty => this == const Tag.empty();
+
   Tag copyWith({
     String? id,
     String? name,
@@ -31,11 +39,8 @@ class Tag {
   @override
   bool operator ==(covariant Tag other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.name == name &&
-      setEquals(other.words, words);
+
+    return other.id == id && other.name == name && setEquals(other.words, words);
   }
 
   @override

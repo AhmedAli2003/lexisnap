@@ -15,7 +15,7 @@ class Word implements Comparable<Word> {
   final Set<MinimalWord> opposites;
   final String note;
 
-  Word({
+  const Word({
     required this.id,
     required this.word,
     required this.definitions,
@@ -26,6 +26,20 @@ class Word implements Comparable<Word> {
     required this.opposites,
     required this.note,
   });
+
+  const Word.empty({
+    this.id = '',
+    this.word = '',
+    this.definitions = const {},
+    this.tags = const {},
+    this.translations = const {},
+    this.statements = const {},
+    this.synonyms = const {},
+    this.opposites = const {},
+    this.note = '',
+  });
+
+  bool get isEmpty => this == const Word.empty();
 
   Word copyWith({
     String? id,

@@ -13,7 +13,7 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.0.9:3000/api/v1/tags';
+    baseUrl ??= 'https://lexisnap.onrender.com/api/v1/tags';
   }
 
   final Dio _dio;
@@ -30,8 +30,8 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     final _headers = <String, dynamic>{r'authorization': accessToken};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<PaginationResponse<List<MinimalTagModel>>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PaginationResponse<List<MinimalTagModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -50,7 +50,10 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     final value = PaginationResponse<List<MinimalTagModel>>.fromJson(
       _result.data!,
       (json) => json is List<dynamic>
-          ? json.map<MinimalTagModel>((i) => MinimalTagModel.fromJson(i as Map<String, dynamic>)).toList()
+          ? json
+              .map<MinimalTagModel>(
+                  (i) => MinimalTagModel.fromJson(i as Map<String, dynamic>))
+              .toList()
           : List.empty(),
     );
     return value;
@@ -66,22 +69,23 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     final _headers = <String, dynamic>{r'authorization': accessToken};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<TagModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<TagModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = ApiResponse<TagModel>.fromJson(
       _result.data!,
       (json) => TagModel.fromJson(json as Map<String, dynamic>),
@@ -100,22 +104,23 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(tag.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<TagModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<TagModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+            .compose(
+              _dio.options,
+              '/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = ApiResponse<TagModel>.fromJson(
       _result.data!,
       (json) => TagModel.fromJson(json as Map<String, dynamic>),
@@ -135,22 +140,23 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(tag.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<MinimalTagModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<MinimalTagModel>>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = ApiResponse<MinimalTagModel>.fromJson(
       _result.data!,
       (json) => MinimalTagModel.fromJson(json as Map<String, dynamic>),
@@ -168,29 +174,31 @@ class _TagsRemoteDataSource implements TagsRemoteDataSource {
     final _headers = <String, dynamic>{r'authorization': accessToken};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
+    final _result =
+        await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/${id}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
+            .compose(
+              _dio.options,
+              '/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final httpResponse = HttpResponse(null, _result);
     return httpResponse;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
         requestOptions.responseType = ResponseType.plain;
       } else {

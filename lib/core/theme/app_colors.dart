@@ -20,11 +20,26 @@ class AppColors {
     green,
     pink,
     purple,
+    Colors.teal,
+    Colors.redAccent,
+    Colors.brown,
+    Colors.blueGrey,
+    Colors.white,
+    Colors.cyan,
+    Colors.lime,
+    Colors.indigo,
   ];
+
+  static Color? prevColor;
 
   static final _random = Random();
 
   static Color get randomColor {
-    return _colors[_random.nextInt(_colors.length)];
+    Color color = _colors[_random.nextInt(_colors.length)];
+    while (prevColor == color) {
+      color = _colors[_random.nextInt(_colors.length)];
+    }
+    prevColor = color;
+    return color;
   }
 }

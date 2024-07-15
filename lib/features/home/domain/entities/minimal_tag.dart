@@ -7,6 +7,13 @@ class MinimalTag {
     required this.name,
   });
 
+  const MinimalTag.empty({
+    this.id = '',
+    this.name = '',
+  });
+
+  bool get isEmpty => this == const MinimalTag.empty();
+
   MinimalTag copyWith({
     String? id,
     String? name,

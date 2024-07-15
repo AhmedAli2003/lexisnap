@@ -62,7 +62,7 @@ class _HomePageAppBarState extends ConsumerState<HomePageAppBar> {
               ),
               onChanged: onChanged,
             )
-          : HomeHeader(name: widget.user.name),
+          : HomeHeader(name: firstName),
       automaticallyImplyLeading: !search,
       actions: search
           ? null
@@ -102,6 +102,8 @@ class _HomePageAppBarState extends ConsumerState<HomePageAppBar> {
             ],
     );
   }
+
+  String get firstName => widget.user.name.substring(0, widget.user.name.indexOf(' '));
 
   void onChanged(String text) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();

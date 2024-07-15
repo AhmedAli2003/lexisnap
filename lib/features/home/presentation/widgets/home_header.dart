@@ -13,15 +13,19 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const AppText(
-          text: 'Hi, ',
-          fontSize: 24,
-          fontWeight: FontWeight.w500,
+        const FittedBox(
+          child: AppText(
+            text: 'Hi, ',
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
         ),
-        AppText(
-          text: name,
-          fontSize: 26,
-          fontWeight: FontWeight.w700,
+        FittedBox(
+          child: AppText(
+            text: name,
+            fontSize: 26,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ],
     );
