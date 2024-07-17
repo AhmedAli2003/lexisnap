@@ -5,6 +5,7 @@ import 'package:lexisnap/core/errors/failure.dart';
 import 'package:lexisnap/core/mappers/statement_mappers.dart';
 import 'package:lexisnap/core/models/create_statement_request.dart';
 import 'package:lexisnap/core/models/update_statement_request.dart';
+import 'package:lexisnap/core/shared/internet_checker.dart';
 import 'package:lexisnap/core/shared/shared_preferences_manager.dart';
 import 'package:lexisnap/features/home/data/data_sources/statements_remote_data_source.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
@@ -30,6 +31,9 @@ class StatementRepositoryImpl implements StatementRepository {
   @override
   Future<Either<Failure, Statement>> createStatement(CreateStatementRequest statement) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.createStatement(
         accessToken: accessToken,
@@ -39,7 +43,7 @@ class StatementRepositoryImpl implements StatementRepository {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!.toEntity());
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));
@@ -49,6 +53,9 @@ class StatementRepositoryImpl implements StatementRepository {
   @override
   Future<Either<Failure, Unit>> deleteStatement(String id) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.deleteStatement(
         accessToken: accessToken,
@@ -58,7 +65,7 @@ class StatementRepositoryImpl implements StatementRepository {
         throw const ServerException(message: 'Could not delete statement, try again');
       }
       return const Right(unit);
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));
@@ -68,6 +75,9 @@ class StatementRepositoryImpl implements StatementRepository {
   @override
   Future<Either<Failure, Statement>> updateStatement(String id, UpdateStatementRequest statement) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.updateStatement(
         id: id,
@@ -78,7 +88,7 @@ class StatementRepositoryImpl implements StatementRepository {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!.toEntity());
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));
@@ -88,13 +98,16 @@ class StatementRepositoryImpl implements StatementRepository {
   @override
   Future<Either<Failure, Statement>> getStatementById(String id) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.getStatementById(id: id, accessToken: accessToken);
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!.toEntity());
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));

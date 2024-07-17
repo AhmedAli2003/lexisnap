@@ -18,7 +18,7 @@ class TagsBox extends ConsumerWidget {
       children: [
         Row(
           children: [
-            const BoxTitle(title: 'Tags', color: AppColors.pink),
+            const TagsTitle(),
             IconButton(
               onPressed: () {
                 showAdaptiveDialog(context: context, builder: (context) => const TagsDialog());
@@ -39,3 +39,21 @@ class TagsBox extends ConsumerWidget {
   }
 }
 
+class TagsTitle extends StatelessWidget {
+  const TagsTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const BoxTitle(
+      title: 'Tags',
+      gradient: LinearGradient(
+        colors: [
+          Colors.pinkAccent,
+          AppColors.pink,
+        ],
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+      ),
+    );
+  }
+}

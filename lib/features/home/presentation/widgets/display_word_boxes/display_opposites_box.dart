@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
-import 'package:lexisnap/features/home/presentation/widgets/box_title.dart';
 import 'package:lexisnap/features/home/presentation/widgets/opposites_widgets/opposite_widget.dart';
+import 'package:lexisnap/features/home/presentation/widgets/opposites_widgets/opposites_box.dart';
 
 class DisplayOppositesBox extends ConsumerWidget {
   const DisplayOppositesBox({super.key});
@@ -17,7 +17,7 @@ class DisplayOppositesBox extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const BoxTitle(title: 'Opposites', color: Colors.red),
+              const OppositesTitle(),
               const SizedBox(height: 12),
               Wrap(
                 children: opposites.map((op) => OppositeWidget(opposite: op)).toList(),

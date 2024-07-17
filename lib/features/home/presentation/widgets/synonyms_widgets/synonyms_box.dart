@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
 import 'package:lexisnap/features/home/presentation/widgets/box_title.dart';
 import 'package:lexisnap/features/home/presentation/widgets/synonyms_widgets/synonym_widget.dart';
@@ -18,14 +17,14 @@ class SynonymsBox extends ConsumerWidget {
       children: [
         Row(
           children: [
-            const BoxTitle(title: 'Synonyms', color: AppColors.green),
+            const SynonymsTitle(),
             IconButton(
               onPressed: () {
                 showModalBottomSheet(context: context, builder: (context) => const SynonymsDialog());
               },
               icon: const Icon(
                 Icons.add_rounded,
-                color: AppColors.green,
+                color: Colors.greenAccent,
               ),
             ),
           ],
@@ -35,6 +34,23 @@ class SynonymsBox extends ConsumerWidget {
           children: synonyms.map((s) => SynonymWidget(synonym: s)).toList(),
         ),
       ],
+    );
+  }
+}
+
+class SynonymsTitle extends StatelessWidget {
+  const SynonymsTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const BoxTitle(
+      title: 'Synonyms',
+      gradient: LinearGradient(
+        colors: [
+          Colors.green,
+          Colors.greenAccent,
+        ],
+      ),
     );
   }
 }

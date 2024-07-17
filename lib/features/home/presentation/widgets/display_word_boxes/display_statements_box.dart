@@ -4,8 +4,8 @@ import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/statement.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
-import 'package:lexisnap/features/home/presentation/widgets/box_title.dart';
 import 'package:lexisnap/features/home/presentation/widgets/speak_icon.dart';
+import 'package:lexisnap/features/home/presentation/widgets/statements_widgets/statements_box.dart';
 
 class DisplayStatementsBox extends ConsumerWidget {
   const DisplayStatementsBox({super.key});
@@ -20,7 +20,7 @@ class DisplayStatementsBox extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const BoxTitle(title: 'Example Statements', color: AppColors.blue),
+              const StatementsTitle(),
               const SizedBox(height: 12),
               ...statements.map((s) => DisplayStatementContainer(statement: s)),
               const SizedBox(height: 20),

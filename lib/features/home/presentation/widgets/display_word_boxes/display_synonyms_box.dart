@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
-import 'package:lexisnap/features/home/presentation/widgets/box_title.dart';
 import 'package:lexisnap/features/home/presentation/widgets/synonyms_widgets/synonym_widget.dart';
+import 'package:lexisnap/features/home/presentation/widgets/synonyms_widgets/synonyms_box.dart';
 
 class DisplaySynonymsBox extends ConsumerWidget {
   const DisplaySynonymsBox({super.key});
@@ -18,7 +17,7 @@ class DisplaySynonymsBox extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const BoxTitle(title: 'Synonyms', color: AppColors.green),
+              const SynonymsTitle(),
               const SizedBox(height: 12),
               Wrap(
                 children: synonyms.map((s) => SynonymWidget(synonym: s)).toList(),

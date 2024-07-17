@@ -17,14 +17,14 @@ class OppositesBox extends ConsumerWidget {
       children: [
         Row(
           children: [
-            const BoxTitle(title: 'Opposites', color: Colors.red),
+            const OppositesTitle(),
             IconButton(
               onPressed: () {
                 showModalBottomSheet(context: context, builder: (context) => const OppositesDialog());
               },
               icon: const Icon(
                 Icons.add_rounded,
-                color: Colors.red,
+                color: Color.fromARGB(255, 240, 124, 115),
               ),
             ),
           ],
@@ -34,6 +34,23 @@ class OppositesBox extends ConsumerWidget {
           children: opposites.map((op) => OppositeWidget(opposite: op)).toList(),
         ),
       ],
+    );
+  }
+}
+
+class OppositesTitle extends StatelessWidget {
+  const OppositesTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const BoxTitle(
+      title: 'Opposites',
+      gradient: LinearGradient(
+        colors: [
+          Colors.red,
+          Color.fromARGB(255, 240, 124, 115),
+        ],
+      ),
     );
   }
 }

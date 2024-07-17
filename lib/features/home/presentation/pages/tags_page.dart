@@ -18,13 +18,21 @@ class TagsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tags = ref.watch(allTagsProvider);
     final loading = ref.watch(tagControllerProvider).createTag;
-    return Scaffold(
+    return 
+    Scaffold(
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
             automaticallyImplyLeading: true,
             title: AppText(text: 'Tags'),
           ),
+          if (tags.isEmpty) 
+          const SliverToBoxAdapter(
+            child: Center(
+              child: Text('There are no tags yet, try to add one.'),
+            ),
+          )
+          else
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             sliver: SliverFixedExtentList.builder(
@@ -68,8 +76,21 @@ class TagsPage extends ConsumerWidget {
             builder: (context) => const AddOrUpdateTagDialog(),
           );
         },
-        backgroundColor: AppColors.pink,
-        child: const Icon(Icons.add_rounded),
+        child: Container(
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+            gradient: LinearGradient(
+              colors: [
+                Colors.pinkAccent,
+                AppColors.pink,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
-import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
-import 'package:lexisnap/features/home/presentation/widgets/box_title.dart';
 import 'package:lexisnap/features/home/presentation/widgets/custom_text_field.dart';
+import 'package:lexisnap/features/home/presentation/widgets/translations_widgets/translations_title.dart';
 import 'package:lexisnap/features/home/presentation/widgets/translations_widgets/translations_wrap_widget.dart';
 
 class TranslationsBox extends ConsumerStatefulWidget {
@@ -39,15 +38,15 @@ class _TranslationsBoxState extends ConsumerState<TranslationsBox> {
       children: [
         Row(
           children: [
-            const BoxTitle(
-              title: 'Translations',
-              color: AppColors.purple,
-            ),
+            const TranslationsTitle(),
             IconButton(
               onPressed: () {
                 node.requestFocus();
               },
-              icon: const Icon(Icons.add_rounded, color: AppColors.purple),
+              icon: const Icon(
+                Icons.add_rounded,
+                color: Color.fromARGB(255, 185, 164, 241),
+              ),
             ),
             Expanded(
               child: CustomTextField(

@@ -38,8 +38,9 @@ class TranslationWidget extends ConsumerWidget {
             border: selected ? Border.all(color: AppColors.blue, width: 1.0) : null,
             gradient: const LinearGradient(
               colors: [
-                AppColors.purple,
-                Color.fromRGBO(123, 100, 223, 0.5),
+                Colors.deepPurple,
+                Colors.deepPurpleAccent,
+                Color.fromARGB(255, 171, 151, 226),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,

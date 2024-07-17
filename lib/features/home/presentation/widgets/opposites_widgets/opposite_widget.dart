@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lexisnap/core/router/word_navigator_observer.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
@@ -24,7 +23,7 @@ class OppositeWidget extends ConsumerWidget {
   static const _refGradient = LinearGradient(
     colors: [
       Colors.red,
-      Color.fromRGBO(244, 67, 54, 0.5),
+      Color.fromARGB(255, 240, 124, 115),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -82,16 +81,14 @@ class OppositeWidget extends ConsumerWidget {
   }
 
   void navigate(BuildContext context, WidgetRef ref, String id) {
-    final oldWordId = ref.read(wordProvider)!.id;
     final word = ref.read(allWordsProvider).firstWhere((w) => w.id == id, orElse: () => const Word.empty());
     if (word.isEmpty) {
       showSnackBar(context, 'This word no longer exists, it may have been removed.');
       return;
     }
-    ref.read(wordPagesStackProvider.notifier).update((state) => [...state, oldWordId]);
     Future.delayed(Duration.zero, () {
       ref.read(wordProvider.notifier).updateWordObject(word.copyWith());
     });
-    GoRouter.of(context).pushNamed(ViewWordPage.name);
+    GoRouter.of(context).goNamed(ViewWordPage.name);
   }
 }

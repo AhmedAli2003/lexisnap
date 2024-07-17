@@ -20,9 +20,9 @@ class StatementsBox extends ConsumerWidget {
       children: [
         Row(
           children: [
-            const BoxTitle(title: 'Statements', color: AppColors.blue),
+            const StatementsTitle(),
             IconButton(
-              icon: const Icon(Icons.add, color: AppColors.blue),
+              icon: const Icon(Icons.add, color: Colors.lightBlueAccent),
               onPressed: () => onPressed(ref, showTextField),
             ),
           ],
@@ -73,9 +73,26 @@ class StatementsBox extends ConsumerWidget {
     ref.read(statementBoxStateProvider.notifier).update(
           (boxState) => boxState.copyWith(
             showTextField: !showTextField,
-            update: showTextField ? false: null,
+            update: showTextField ? false : null,
             wordId: ref.read(wordProvider)!.id,
           ),
         );
+  }
+}
+
+class StatementsTitle extends StatelessWidget {
+  const StatementsTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const BoxTitle(
+      title: 'Example Statements',
+      gradient: LinearGradient(
+        colors: [
+          Color.fromARGB(255, 4, 112, 201),
+          Colors.lightBlueAccent,
+        ],
+      ),
+    );
   }
 }

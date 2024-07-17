@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
-import 'package:lexisnap/core/theme/app_colors.dart';
 
 class SignOutDialog extends StatelessWidget {
   final VoidCallback signOut;
@@ -16,16 +15,26 @@ class SignOutDialog extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          child: const AppText(
+          child: const GradientText(
             text: 'Back',
-            color: AppColors.blue,
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 4, 112, 201),
+                Colors.lightBlueAccent,
+              ],
+            ),
           ),
         ),
         TextButton(
           onPressed: signOut,
-          child: const AppText(
+          child: const GradientText(
             text: 'Sign Out',
-            color: Colors.red,
+            gradient: LinearGradient(
+              colors: [
+                Colors.red,
+                Color.fromARGB(255, 240, 124, 115),
+              ],
+            ),
           ),
         ),
       ],

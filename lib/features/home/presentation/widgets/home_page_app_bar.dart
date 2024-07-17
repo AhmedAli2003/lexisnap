@@ -7,6 +7,7 @@ import 'package:lexisnap/features/auth/domain/entities/app_user.dart';
 import 'package:lexisnap/features/home/presentation/controllers/home_page_words_provider.dart';
 import 'package:lexisnap/features/home/presentation/controllers/home_search_controller.dart';
 import 'package:lexisnap/features/home/presentation/widgets/home_header.dart';
+import 'package:lexisnap/features/settings/controllers/settings_controller.dart';
 
 class HomePageAppBar extends ConsumerStatefulWidget {
   const HomePageAppBar({
@@ -38,6 +39,7 @@ class _HomePageAppBarState extends ConsumerState<HomePageAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = ref.watch(settingsControllerProvider).getTextStyle;
     return SliverAppBar(
       title: search
           ? TextField(
@@ -60,6 +62,7 @@ class _HomePageAppBarState extends ConsumerState<HomePageAppBar> {
                   icon: const Icon(Icons.close_rounded),
                 ),
               ),
+              style: textStyle(),
               onChanged: onChanged,
             )
           : HomeHeader(name: firstName),

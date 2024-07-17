@@ -6,6 +6,7 @@ class AppUrls {
   static const String wordsUrl = '$baseUrl/words';
   static const String tagsUrl = '$baseUrl/tags';
   static const String statementsUrl = '$baseUrl/statements';
+  static const String contactUsUrl = '$baseUrl/contact-us';
 
   static const String authorization = 'authorization';
 }

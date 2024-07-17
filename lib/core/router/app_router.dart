@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lexisnap/core/router/word_navigator_observer.dart';
 import 'package:lexisnap/core/shared/splash_screen.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:lexisnap/features/auth/presentation/pages/auth_page.dart';
+import 'package:lexisnap/features/contact_us/presentation/contact_us_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/create-update-page/create_and_update_word_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/create-update-page/update_word_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/home_page.dart';
@@ -30,9 +30,6 @@ class AppRouter {
 
   late final _router = GoRouter(
     initialLocation: SplashScreen.path,
-    observers: [
-      WordNavigatorObserver(_ref),
-    ],
     routes: [
       GoRoute(
         path: SplashScreen.path,
@@ -154,6 +151,21 @@ class AppRouter {
             pageBuilder: (context, state) => CustomTransitionPage(
               name: SettingsPage.name,
               child: const SettingsPage(),
+              transitionsBuilder: (
+                context,
+                animation,
+                secondaryAnimation,
+                child,
+              ) =>
+                  FadeTransition(opacity: animation, child: child),
+            ),
+          ),
+          GoRoute(
+            path: ContactUsPage.path,
+            name: ContactUsPage.name,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              name: ContactUsPage.name,
+              child: const ContactUsPage(),
               transitionsBuilder: (
                 context,
                 animation,

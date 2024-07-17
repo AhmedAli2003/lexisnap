@@ -31,7 +31,6 @@ class ViewWordPage extends ConsumerWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 12,
-            vertical: 8,
           ),
           child: SingleChildScrollView(
             child: Column(

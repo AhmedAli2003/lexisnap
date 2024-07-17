@@ -5,6 +5,7 @@ import 'package:lexisnap/core/errors/failure.dart';
 import 'package:lexisnap/core/mappers/word_mappers.dart';
 import 'package:lexisnap/core/models/create_word_request.dart';
 import 'package:lexisnap/core/models/update_word_request.dart';
+import 'package:lexisnap/core/shared/internet_checker.dart';
 import 'package:lexisnap/core/shared/shared_preferences_manager.dart';
 import 'package:lexisnap/features/home/data/data_sources/words_remote_data_source.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_word.dart';
@@ -37,7 +38,7 @@ class WordRepositoryImpl implements WordRepository {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!.toEntity());
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));
@@ -47,13 +48,16 @@ class WordRepositoryImpl implements WordRepository {
   @override
   Future<Either<Failure, Unit>> deleteWord(String id) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.deleteWord(id: id, accessToken: accessToken);
       if (response.response.statusCode != 204) {
         throw const ServerException(message: 'Could not delete word, try again');
       }
       return const Right(unit);
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));
@@ -63,13 +67,16 @@ class WordRepositoryImpl implements WordRepository {
   @override
   Future<Either<Failure, List<Word>>> getAllWords({int page = 1}) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.getAllWords(accessToken: accessToken, page: page);
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!.map((e) => e.toEntity()).toList());
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));
@@ -79,13 +86,16 @@ class WordRepositoryImpl implements WordRepository {
   @override
   Future<Either<Failure, Word>> getWordById(String id) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.getWordById(id: id, accessToken: accessToken);
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!.toEntity());
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));
@@ -95,13 +105,16 @@ class WordRepositoryImpl implements WordRepository {
   @override
   Future<Either<Failure, List<MinimalWord>>> getWordsOverview() async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.getWordsOverview(accessToken: accessToken);
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!.map((e) => e.toEntity()).toList());
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));
@@ -111,6 +124,9 @@ class WordRepositoryImpl implements WordRepository {
   @override
   Future<Either<Failure, Word>> updateWord(String id, UpdateWordRequest word) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
       final response = await _dataSource.updateWord(
         id: id,
@@ -121,7 +137,7 @@ class WordRepositoryImpl implements WordRepository {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!.toEntity());
-    } on ServerException catch (e) {
+    } on AppException catch (e) {
       return Left(Failure(e));
     } catch (e) {
       return Left(Failure.fromException(e));

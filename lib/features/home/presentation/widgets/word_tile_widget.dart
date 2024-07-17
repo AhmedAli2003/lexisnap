@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/word.dart';
-import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
-import 'package:lexisnap/features/home/presentation/pages/view_word_page.dart';
 import 'package:lexisnap/features/home/presentation/widgets/speak_icon.dart';
 
 class WordTileWidget extends StatelessWidget {
   final Word word;
-  final WidgetRef ref;
+  final void Function() onTap;
   const WordTileWidget({
     super.key,
     required this.word,
-    required this.ref,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final subtitle = getSubtitile(word);
     return ListTile(
-      onTap: () => onTap(context),
+      onTap: onTap,
       leading: Container(
         width: 4,
         decoration: BoxDecoration(
-          color: AppColors.randomColor,
+          gradient: LinearGradient(
+            colors: AppColors.gradient,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           borderRadius: BorderRadius.circular(2),
         ),
       ),
@@ -38,10 +38,17 @@ class WordTileWidget extends StatelessWidget {
           ),
           if (word.translations.isNotEmpty) const Spacer(),
           if (word.translations.isNotEmpty)
-            AppText(
+            GradientText(
               text: word.translations.first,
               fontWeight: FontWeight.normal,
-              color: AppColors.purple,
+              gradient: const LinearGradient(
+                colors: [
+                  Colors.deepPurple,
+                  Color.fromARGB(255, 185, 164, 241),
+                ],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+              ),
               fontSize: 18,
             ),
         ],
@@ -53,11 +60,6 @@ class WordTileWidget extends StatelessWidget {
       ),
       trailing: SpeakIcon(text: word.word),
     );
-  }
-
-  void onTap(BuildContext context) {
-    ref.read(wordProvider.notifier).updateWordObject(word.copyWith());
-    GoRouter.of(context).pushNamed(ViewWordPage.name);
   }
 
   String? getSubtitile(Word word) {

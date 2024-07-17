@@ -15,11 +15,15 @@ class AppColors {
   static const white = Colors.white;
 
   static const List<Color> _colors = [
-    blue,
-    yellow,
-    green,
-    pink,
-    purple,
+    Colors.purple,
+    Colors.deepPurple,
+    Colors.pink,
+    Colors.pinkAccent,
+    Colors.green,
+    Colors.yellow,
+    Colors.amber,
+    Colors.blueAccent,
+    Colors.blue,
     Colors.teal,
     Colors.redAccent,
     Colors.brown,
@@ -41,5 +45,9 @@ class AppColors {
     }
     prevColor = color;
     return color;
+  }
+
+  static List<Color> get gradient {
+    return [randomColor, randomColor];
   }
 }

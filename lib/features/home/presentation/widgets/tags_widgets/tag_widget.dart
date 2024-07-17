@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lexisnap/core/router/word_navigator_observer.dart';
 import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
@@ -22,8 +21,8 @@ class TagWidget extends ConsumerWidget {
 
   static const _pinkGradient = LinearGradient(
     colors: [
+      Colors.pinkAccent,
       AppColors.pink,
-      Color.fromRGBO(255, 166, 201, 0.5),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -89,14 +88,15 @@ class TagWidget extends ConsumerWidget {
       showSnackBar(context, 'This tag no longer exists, it may have been removed.');
       return;
     }
-    ref.read(tagPagesStackProvider.notifier).update((state) => [...state, id]);
-    ref.read(tagProvider.notifier).update(
-          (state) => Tag(
-            id: tag.id,
-            name: tag.name,
-            words: const {},
-          ),
-        );
-    GoRouter.of(context).pushNamed(TagDetailsPage.name);
+    Future.delayed(Duration.zero, () {
+      ref.read(tagProvider.notifier).update(
+            (state) => Tag(
+              id: tag.id,
+              name: tag.name,
+              words: const {},
+            ),
+          );
+    });
+    GoRouter.of(context).pushReplacementNamed(TagDetailsPage.name);
   }
 }

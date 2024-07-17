@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
-import 'package:lexisnap/core/theme/app_colors.dart';
 
 class ExitDialog extends StatelessWidget {
   const ExitDialog({super.key});
@@ -20,11 +19,27 @@ class ExitDialog extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           onPressed: () => GoRouter.of(context).pop(false),
-          child: const AppText(text: 'Stay', color: AppColors.blue),
+          child: const GradientText(
+            text: 'Stay',
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 4, 112, 201),
+                Colors.lightBlueAccent,
+              ],
+            ),
+          ),
         ),
         TextButton(
           onPressed: () => GoRouter.of(context).pop(true),
-          child: const AppText(text: 'Exit Anyway', color: Colors.red),
+          child: const GradientText(
+            text: 'Exit Anyway',
+            gradient: LinearGradient(
+              colors: [
+                Colors.red,
+                Color.fromARGB(255, 240, 124, 115),
+              ],
+            ),
+          ),
         ),
       ],
     );

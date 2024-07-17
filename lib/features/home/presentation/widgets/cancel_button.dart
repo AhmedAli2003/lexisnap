@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexisnap/core/models/update_word_request.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
-import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
 
@@ -14,9 +13,16 @@ class CancelButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
       onPressed: () => pop(context, ref),
-      child: const AppText(
+      child: const GradientText(
         text: 'Cancel',
-        color: AppColors.blue,
+        gradient: LinearGradient(
+          colors: [
+            Color.fromARGB(255, 4, 112, 201),
+            Colors.lightBlueAccent,
+          ],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
       ),
     );
   }
@@ -67,9 +73,14 @@ class CancelBeforeUpdateAlertDialog extends ConsumerWidget {
             // Cancel without saving changes
             GoRouter.of(context).pop(true);
           },
-          child: const AppText(
+          child: const GradientText(
             text: 'Cancel',
-            color: Colors.red,
+            gradient: LinearGradient(
+              colors: [
+                Colors.red,
+                Color.fromARGB(255, 240, 124, 115),
+              ],
+            ),
           ),
         ),
         TextButton(
@@ -77,9 +88,16 @@ class CancelBeforeUpdateAlertDialog extends ConsumerWidget {
             // Save changes before cancelling
             GoRouter.of(context).pop(false);
           },
-          child: const AppText(
+          child: const GradientText(
             text: 'Save changes',
-            color: AppColors.blue,
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 4, 112, 201),
+                Colors.lightBlueAccent,
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
           ),
         ),
       ],

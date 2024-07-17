@@ -7,6 +7,7 @@ import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/minimal_tag.dart';
 import 'package:lexisnap/features/home/presentation/controllers/tag_controller.dart';
+import 'package:lexisnap/features/settings/controllers/settings_controller.dart';
 
 class AddOrUpdateTagDialog extends ConsumerStatefulWidget {
   final bool update;
@@ -44,6 +45,7 @@ class _AddOrUpdateTagDialogState extends ConsumerState<AddOrUpdateTagDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = ref.watch(settingsControllerProvider).getTextStyle;
     return AlertDialog.adaptive(
       title: widget.update ? const Text('Update the tag') : const Text('Add a new tag'),
       content: TextField(
@@ -65,21 +67,32 @@ class _AddOrUpdateTagDialogState extends ConsumerState<AddOrUpdateTagDialog> {
           ),
           hintText: widget.update ? 'Update the tag' : 'Enter a new tag',
         ),
+        style: textStyle(),
         onEditingComplete: widget.update ? updateTag : createTag,
       ),
       actions: [
         TextButton(
           onPressed: cancel,
-          child: const AppText(
+          child: const GradientText(
             text: 'Cancel',
-            color: AppColors.blue,
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 4, 112, 201),
+                Colors.lightBlueAccent,
+              ],
+            ),
           ),
         ),
         TextButton(
           onPressed: widget.update ? updateTag : createTag,
-          child: AppText(
+          child: GradientText(
             text: widget.update ? 'Update' : 'Add',
-            color: AppColors.pink,
+            gradient: const LinearGradient(
+              colors: [
+                Colors.red,
+                Color.fromARGB(255, 240, 124, 115),
+              ],
+            ),
           ),
         ),
       ],

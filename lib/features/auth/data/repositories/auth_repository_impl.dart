@@ -4,6 +4,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:lexisnap/core/errors/exceptions.dart';
 import 'package:lexisnap/core/errors/failure.dart';
 import 'package:lexisnap/core/mappers/app_user_model_to_user_model.dart';
+import 'package:lexisnap/core/shared/internet_checker.dart';
 import 'package:lexisnap/core/shared/shared_preferences_manager.dart';
 import 'package:lexisnap/features/auth/data/data_sources/firebase_auth_data_source.dart';
 import 'package:lexisnap/features/auth/data/data_sources/server_auth_data_source.dart';
@@ -35,6 +36,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, AppUser>> signInWithGoogle() async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
+
       final userCredential = await _firebaseAuthDataSource.signInWithGoogle();
       final User? user = userCredential.user;
       if (user == null) {
@@ -86,6 +91,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, AppUser>> getUserFromBackend(User user) async {
     try {
+      if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
+        throw const NoInternetException();
+      }
+
       final idToken = await user.getIdToken();
 
       if (idToken == null) {

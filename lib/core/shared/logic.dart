@@ -19,3 +19,8 @@ double convertRateToSpeed(double rate) {
   if (rate == 1.0) return 2.0;
   return 1.0;
 }
+
+bool isEnglish(String text) {
+  final englishPattern = RegExp(r"""^[a-zA-Z0-9\s,.\'\"\!\?\-]+$""");
+  return englishPattern.hasMatch(text);
+}

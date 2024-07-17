@@ -8,6 +8,8 @@ import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/domain/entities/word.dart';
 import 'package:lexisnap/features/home/presentation/controllers/tag_controller.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_controller.dart';
+import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
+import 'package:lexisnap/features/home/presentation/pages/view_word_page.dart';
 import 'package:lexisnap/features/home/presentation/widgets/tag_details/add_or_update_tag_dialog.dart';
 import 'package:lexisnap/features/home/presentation/widgets/tag_details/delete_tag_dialog.dart';
 import 'package:lexisnap/features/home/presentation/widgets/word_tile_widget.dart';
@@ -71,13 +73,23 @@ class TagDetailsPage extends ConsumerWidget {
                         const SizedBox(width: 8),
                       ],
                     ),
-                    SliverList.builder(
-                      itemBuilder: (context, index) => WordTileWidget(
-                        word: tagWords.elementAt(index),
-                        ref: ref,
+                    if (tagWords.isEmpty)
+                      const SliverToBoxAdapter(
+                        child: Center(
+                          child: Text('There are no words yet, try to add one.'),
+                        ),
+                      )
+                    else
+                      SliverList.builder(
+                        itemBuilder: (context, index) => WordTileWidget(
+                          word: tagWords.elementAt(index),
+                          onTap: () {
+                            ref.read(wordProvider.notifier).updateWordObject(tagWords.elementAt(index));
+                            GoRouter.of(context).pushNamed(ViewWordPage.name);
+                          },
+                        ),
+                        itemCount: tagWords.length,
                       ),
-                      itemCount: tagWords.length,
-                    ),
                   ],
                 ),
               );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexisnap/features/contact_us/presentation/contact_us_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/tags_page.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_tile.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_title.dart';
@@ -37,7 +38,7 @@ class AppDrawer extends StatelessWidget {
           DrawerTile(
             title: 'Contact Us',
             icon: Icons.message_rounded,
-            onTap: () {},
+            onTap: () => _navigateToContactUs(context),
           ),
           const Spacer(),
           const SignOutTile(),
@@ -53,5 +54,9 @@ class AppDrawer extends StatelessWidget {
 
   void _navigateToSettings(BuildContext context) {
     GoRouter.of(context).pushNamed(SettingsPage.name);
+  }
+
+  void _navigateToContactUs(BuildContext context) {
+    GoRouter.of(context).pushNamed(ContactUsPage.name);
   }
 }

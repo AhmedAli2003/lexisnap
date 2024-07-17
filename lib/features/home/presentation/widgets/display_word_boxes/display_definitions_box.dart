@@ -4,7 +4,7 @@ import 'package:lexisnap/core/shared/string_utils.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/home/presentation/controllers/word_notifier.dart';
-import 'package:lexisnap/features/home/presentation/widgets/box_title.dart';
+import 'package:lexisnap/features/home/presentation/widgets/definitions_widgets/definitions_box.dart';
 
 class DisplayDifinitionsBox extends ConsumerWidget {
   const DisplayDifinitionsBox({super.key});
@@ -19,10 +19,7 @@ class DisplayDifinitionsBox extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const BoxTitle(
-                title: 'Definitions',
-                color: AppColors.white,
-              ),
+              const DefinitionsTitle(),
               const SizedBox(height: 12),
               ...definitions.map(
                 (definition) => Container(

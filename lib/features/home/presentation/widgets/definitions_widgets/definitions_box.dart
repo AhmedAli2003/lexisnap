@@ -44,13 +44,10 @@ class _DefinitionsBoxState extends ConsumerState<DefinitionsBox> {
       children: [
         Row(
           children: [
-            const BoxTitle(
-              title: 'Definitions',
-              color: AppColors.white,
-            ),
+            const DefinitionsTitle(),
             IconButton(
               onPressed: onPressed,
-              icon: const Icon(Icons.add_rounded, color: AppColors.white),
+              icon: const Icon(Icons.add_rounded, color: Colors.white70),
             ),
           ],
         ),
@@ -133,5 +130,22 @@ class _DefinitionsBoxState extends ConsumerState<DefinitionsBox> {
     update = false;
     oldDefinition = '';
     setState(() {});
+  }
+}
+
+class DefinitionsTitle extends StatelessWidget {
+  const DefinitionsTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const BoxTitle(
+      title: 'Definitions',
+      gradient: LinearGradient(
+        colors: [
+          Colors.white,
+          Colors.white70,
+        ],
+      ),
+    );
   }
 }

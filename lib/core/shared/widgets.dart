@@ -47,7 +47,7 @@ class LoadingScaffold extends StatelessWidget {
 class AppText extends ConsumerWidget {
   final String text;
   final Color? color;
-  final double fontSize;
+  final double? fontSize;
   final FontWeight? fontWeight;
   final double? wordSpacing;
   final double? letterSpacing;
@@ -76,7 +76,7 @@ class AppText extends ConsumerWidget {
       text,
       style: ref.read(settingsControllerProvider).getTextStyle(
             color: color,
-            fontSize: fontSize,
+            fontSize: fontSize ?? 16,
             fontWeight: fontWeight,
             wordSpacing: wordSpacing,
             letterSpacing: letterSpacing,
@@ -127,6 +127,52 @@ class AppSelectableText extends ConsumerWidget {
       textAlign: textAlign,
       textDirection: textDirection,
       maxLines: maxLines,
+    );
+  }
+}
+
+class GradientText extends StatelessWidget {
+  const GradientText({
+    super.key,
+    required this.text,
+    required this.gradient,
+    this.fontSize,
+    this.fontWeight,
+    this.wordSpacing,
+    this.letterSpacing,
+    this.textAlign,
+    this.textDirection,
+    this.maxLines,
+    this.overflow,
+  });
+  final String text;
+  final double? fontSize;
+  final FontWeight? fontWeight;
+  final double? wordSpacing;
+  final double? letterSpacing;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
+  final int? maxLines;
+  final TextOverflow? overflow;
+  final Gradient gradient;
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (bounds) => gradient.createShader(
+        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+      ),
+      child: AppText(
+        text: text,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        letterSpacing: letterSpacing,
+        maxLines: maxLines,
+        overflow: overflow,
+        textAlign: textAlign,
+        textDirection: textDirection,
+        wordSpacing: wordSpacing,
+      ),
     );
   }
 }

@@ -45,13 +45,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               AppColors.scaffoldBackgroundColor,
-              const Color.fromRGBO(20, 20, 25, 0.75),
-              const Color.fromRGBO(20, 20, 25, 0.5),
-              const Color.fromRGBO(20, 20, 25, 0.25),
+              Color.fromRGBO(20, 20, 25, 0.75),
+              Color.fromRGBO(20, 20, 25, 0.5),
+              Color.fromRGBO(20, 20, 25, 0.25),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

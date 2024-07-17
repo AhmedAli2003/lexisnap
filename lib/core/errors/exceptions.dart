@@ -36,3 +36,7 @@ class UnknownFirebaseException extends AppException {
 class CouldNotMappingException extends AppException {
   const CouldNotMappingException({required super.message});
 }
+
+class NoInternetException extends AppException {
+  const NoInternetException({super.message = 'Check your internet connection.'});
+}
