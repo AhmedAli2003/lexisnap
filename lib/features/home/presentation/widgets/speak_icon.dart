@@ -21,7 +21,11 @@ class SpeakIcon extends ConsumerStatefulWidget {
   ConsumerState<SpeakIcon> createState() => _SpeakIconState();
 }
 
-class _SpeakIconState extends ConsumerState<SpeakIcon> {
+class _SpeakIconState extends ConsumerState<SpeakIcon> with SingleTickerProviderStateMixin {
+  late final AnimationController controller;
+
+  bool speakingForIcon = false;
+
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
   late double currentSpeed;
@@ -29,39 +33,51 @@ class _SpeakIconState extends ConsumerState<SpeakIcon> {
   @override
   void initState() {
     super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
     currentSpeed = ref.read(settingsControllerProvider).getSpeechRate();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final utteranceState = ref.watch(ttsProvider);
     final speaking = utteranceState.speak && utteranceState.id == widget.id;
+    if (speaking) {
+      controller.forward();
+    } else {
+      controller.reverse();
+    }
     return CompositedTransformTarget(
       link: _layerLink,
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
-        onTap: () => speaking
-            ? _stop(ref: ref)
-            : _speak(
-                ref: ref,
-                text: widget.text,
-                rate: convertSpeedToRate(currentSpeed),
-                pitch: ref.read(settingsControllerProvider).getSpeechPitch(),
-              ),
+        onTap: speaking
+            ? () {
+                _stop(ref: ref);
+              }
+            : () {
+                _speak(
+                  ref: ref,
+                  text: widget.text,
+                  rate: convertSpeedToRate(currentSpeed),
+                  pitch: ref.read(settingsControllerProvider).getSpeechPitch(),
+                );
+              },
         onLongPress: _showOverlay,
         child: Container(
           padding: const EdgeInsets.all(4),
-          child: speaking
-              ? Icon(
-                  Icons.mic_off_rounded,
-                  color: AppColors.white,
-                  size: widget.size,
-                )
-              : Icon(
-                  Icons.mic_rounded,
-                  color: AppColors.white,
-                  size: widget.size,
-                ),
+          child: AnimatedIcon(
+            icon: AnimatedIcons.play_pause,
+            progress: controller,
+          ),
         ),
       ),
     );
