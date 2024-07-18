@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' show pi;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -80,28 +81,8 @@ class _HomePageAppBarState extends ConsumerState<HomePageAppBar> {
                 },
                 icon: const Icon(Icons.search_rounded),
               ),
-              IconButton(
-                onPressed: () {
-                  final sorting = ref.read(wordsSortingProvider);
-                  if (sorting == Sorting.dateDesc) {
-                    ref.read(wordsSortingProvider.notifier).update((_) => Sorting.dateAsc);
-                  } else {
-                    ref.read(wordsSortingProvider.notifier).update((_) => Sorting.dateDesc);
-                  }
-                },
-                icon: const Icon(Icons.sort_rounded),
-              ),
-              IconButton(
-                onPressed: () {
-                  final sorting = ref.read(wordsSortingProvider);
-                  if (sorting == Sorting.alphaAsc) {
-                    ref.read(wordsSortingProvider.notifier).update((_) => Sorting.alphaDesc);
-                  } else {
-                    ref.read(wordsSortingProvider.notifier).update((_) => Sorting.alphaAsc);
-                  }
-                },
-                icon: const Icon(Icons.sort_by_alpha_rounded),
-              ),
+              const SortByDateIcon(),
+              const SortAlphabaticalIcon(),
             ],
     );
   }
@@ -113,5 +94,58 @@ class _HomePageAppBarState extends ConsumerState<HomePageAppBar> {
     _debounce = Timer(const Duration(milliseconds: 300), () {
       ref.read(homeSearchControllerProvider.notifier).search(text);
     });
+  }
+}
+
+class SortAlphabaticalIcon extends ConsumerWidget {
+  const SortAlphabaticalIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sorting = ref.watch(wordsSortingProvider);
+    return IconButton(
+      onPressed: () {
+        if (sorting == Sorting.alphaAsc) {
+          ref.read(wordsSortingProvider.notifier).update((_) => Sorting.alphaDesc);
+        } else {
+          ref.read(wordsSortingProvider.notifier).update((_) => Sorting.alphaAsc);
+        }
+      },
+      icon: const Icon(Icons.sort_by_alpha_rounded),
+    );
+  }
+}
+
+class SortByDateIcon extends ConsumerStatefulWidget {
+  const SortByDateIcon({
+    super.key,
+  });
+
+  @override
+  ConsumerState<SortByDateIcon> createState() => _SortByDateIconState();
+}
+
+class _SortByDateIconState extends ConsumerState<SortByDateIcon> {
+  @override
+  Widget build(BuildContext context) {
+    final sorting = ref.watch(wordsSortingProvider);
+    return IconButton(
+      onPressed: () {
+        if (sorting == Sorting.dateDesc) {
+          ref.read(wordsSortingProvider.notifier).update((_) => Sorting.dateAsc);
+        } else {
+          ref.read(wordsSortingProvider.notifier).update((_) => Sorting.dateDesc);
+        }
+        setState(() {});
+      },
+      icon: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        transformAlignment: Alignment.center,
+        transform: Matrix4.identity()..rotateX(sorting == Sorting.dateAsc ? pi : 0),
+        child: const Icon(Icons.sort_rounded),
+      ),
+    );
   }
 }
