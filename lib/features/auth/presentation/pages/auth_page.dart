@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
@@ -22,8 +23,9 @@ class AuthPage extends ConsumerWidget {
           gradient: LinearGradient(
             colors: [
               AppColors.scaffoldBackgroundColor,
-              Color.fromRGBO(20, 20, 25, 0.8),
-              AppColors.grey,
+              Color.fromRGBO(20, 20, 25, 0.75),
+              Color.fromRGBO(20, 20, 25, 0.5),
+              Color.fromRGBO(20, 20, 25, 0.25),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -31,12 +33,16 @@ class AuthPage extends ConsumerWidget {
         ),
         child: ref.watch(authControllerProvider)
             ? const Loading()
-            : const Column(
+            : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FlutterLogo(size: 128),
-                  SizedBox(height: 32),
-                  SignInButton(),
+                  SvgPicture.asset(
+                    'assets/svgs/lexisnap.svg',
+                    width: 300,
+                    height: 80,
+                  ),
+                  const SizedBox(height: 32),
+                  const SignInButton(),
                 ],
               ),
       ),
