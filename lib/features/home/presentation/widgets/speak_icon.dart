@@ -81,7 +81,7 @@ class _SpeakIconState extends ConsumerState<SpeakIcon> {
     return OverlayEntry(
       builder: (context) {
         return Positioned(
-          width: 200,
+          width: 220,
           child: CompositedTransformFollower(
             link: _layerLink,
             showWhenUnlinked: false,
