@@ -49,7 +49,10 @@ class _WordBoxState extends ConsumerState<WordBox> {
                 ),
               ),
               const Spacer(),
-              SpeakIcon(text: word),
+              SpeakIcon(
+                text: word,
+                id: ref.read(wordProvider)?.id ?? '',
+              ),
             ],
           );
   }

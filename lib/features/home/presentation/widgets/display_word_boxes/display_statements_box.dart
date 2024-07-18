@@ -74,7 +74,10 @@ class DisplayStatementContainer extends StatelessWidget {
             ),
           ),
         ),
-        SpeakIcon(text: statement.text),
+        SpeakIcon(
+          text: statement.text,
+          id: statement.id,
+        ),
       ],
     );
   }

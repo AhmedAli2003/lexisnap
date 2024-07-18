@@ -58,7 +58,7 @@ class WordTileWidget extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: SpeakIcon(text: word.word),
+      trailing: SpeakIcon(text: word.word, id: word.id,),
     );
   }
 

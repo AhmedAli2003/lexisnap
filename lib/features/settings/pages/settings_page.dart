@@ -41,7 +41,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: TextFamily.values.map((textFamily) {
+          children: TextFamily.values.map<RadioListTile<TextFamily>>((textFamily) {
             return RadioListTile<TextFamily>(
               value: textFamily,
               groupValue: font,

@@ -23,7 +23,10 @@ class DisplayWordTextBox extends ConsumerWidget {
           fontWeight: FontWeight.w500,
         ),
         const Spacer(),
-        SpeakIcon(text: word),
+        SpeakIcon(
+          text: word,
+          id: ref.read(wordProvider)?.id ?? '',
+        ),
       ],
     );
   }

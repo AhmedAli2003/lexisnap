@@ -27,12 +27,9 @@ class ContactUsController extends StateNotifier<bool> {
     state = false;
     either.fold(
       (failure) {
-        print('HERE FROM FAILURE');
-        print(failure.message);
         showSnackBar(context, failure.message);
       },
       (_) {
-        print('SUCCESS');
         showSnackBar(context, 'Contact has been sent successfully!');
       },
     );

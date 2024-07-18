@@ -45,7 +45,7 @@ class _MainWordRowState extends ConsumerState<MainWordRow> {
             onEditingComplete: () {},
           ),
         ),
-        SpeakIcon(text: word.word),
+        SpeakIcon(text: word.word, id: word.id),
       ],
     );
   }

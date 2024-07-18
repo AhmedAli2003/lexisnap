@@ -26,38 +26,25 @@ class ContactUsRepository {
 
   Future<Either<Failure, Contact>> sendContact(Contact contact) async {
     try {
-      print('Step 1 ------------------------------------------------');
       if (!(await _ref.read(internetCheckerProvider).hasConnection)) {
         throw const NoInternetException();
       }
-      print('Step 2 ------------------------------------------------');
       final accessToken = _ref.read(sharedPrefProvider).getAccessToken();
-      print('Step 3 ------------------------------------------------');
       final response = await _dataSource.sendContact(
         accessToken: accessToken,
         contact: contact,
       );
-      print('Step 4 ------------------------------------------------');
-      print('===========================================================');
-      print(response.data);
-      print(response.success);
-      print('===========================================================');
       if (!response.success || response.data == null) {
         throw ServerException(message: response.message!);
       }
       return Right(response.data!);
     } on NoInternetException {
-      print('No internet connection.');
       return Left(Failure(const NoInternetException()));
     } on ServerException catch (e) {
-      print('ServerException: ${e.message}');
       return Left(Failure(e));
     } on AppException catch (e) {
-      print('AppException: ${e.message}');
       return Left(Failure(e));
-    } catch (e, sta) {
-      print('Unknown Exception: $e');
-      print('Unknown Exception: $sta');
+    } catch (e) {
       return Left(Failure.fromException(e));
     }
   }
