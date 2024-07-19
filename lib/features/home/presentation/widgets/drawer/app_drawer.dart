@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexisnap/features/contact_us/presentation/contact_us_page.dart';
+import 'package:lexisnap/features/extension/extension_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/tags_page.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_tile.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_title.dart';
@@ -32,7 +33,7 @@ class AppDrawer extends StatelessWidget {
           DrawerTile(
             title: 'Our Extension !!',
             icon: Icons.extension_rounded,
-            onTap: () {},
+            onTap: () => _navigateToExtension(context),
           ),
           const SizedBox(height: 16),
           DrawerTile(
@@ -58,5 +59,9 @@ class AppDrawer extends StatelessWidget {
 
   void _navigateToContactUs(BuildContext context) {
     GoRouter.of(context).pushNamed(ContactUsPage.name);
+  }
+
+  void _navigateToExtension(BuildContext context) {
+    GoRouter.of(context).pushNamed(ExtensionPage.name);
   }
 }

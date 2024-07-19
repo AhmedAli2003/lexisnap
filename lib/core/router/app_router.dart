@@ -5,6 +5,7 @@ import 'package:lexisnap/core/shared/splash_screen.dart';
 import 'package:lexisnap/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:lexisnap/features/auth/presentation/pages/auth_page.dart';
 import 'package:lexisnap/features/contact_us/presentation/contact_us_page.dart';
+import 'package:lexisnap/features/extension/extension_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/create-update-page/create_and_update_word_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/create-update-page/update_word_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/home_page.dart';
@@ -173,6 +174,24 @@ class AppRouter {
                 child,
               ) =>
                   FadeTransition(opacity: animation, child: child),
+            ),
+          ),
+          GoRoute(
+            path: ExtensionPage.path,
+            name: ExtensionPage.name,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              name: ExtensionPage.name,
+              child: const ExtensionPage(),
+              transitionsBuilder: (
+                context,
+                animation,
+                secondaryAnimation,
+                child,
+              ) =>
+                  FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
         ],
