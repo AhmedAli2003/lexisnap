@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexisnap/core/theme/app_colors.dart';
 import 'package:lexisnap/features/contact_us/presentation/contact_us_page.dart';
+import 'package:lexisnap/features/donations/donations_page.dart';
 import 'package:lexisnap/features/extension/extension_page.dart';
 import 'package:lexisnap/features/home/presentation/pages/tags_page.dart';
 import 'package:lexisnap/features/home/presentation/widgets/drawer/drawer_tile.dart';
@@ -20,25 +23,42 @@ class AppDrawer extends StatelessWidget {
           const SizedBox(height: 24),
           DrawerTile(
             title: 'Tags',
-            icon: Icons.tag_rounded,
+            icon: const Icon(Icons.tag_rounded, size: 28),
             onTap: () => _navigateToTags(context),
           ),
           const SizedBox(height: 16),
           DrawerTile(
             title: 'Change App Font',
-            icon: Icons.font_download_rounded,
+            icon: const Icon(Icons.font_download_rounded, size: 28),
             onTap: () => _navigateToSettings(context),
           ),
           const SizedBox(height: 16),
           DrawerTile(
-            title: 'Our Extension !!',
-            icon: Icons.extension_rounded,
+            title: 'Our Extension',
+            icon: const Icon(Icons.extension_rounded, size: 28),
             onTap: () => _navigateToExtension(context),
           ),
           const SizedBox(height: 16),
           DrawerTile(
+            title: 'Important',
+            gradient: const LinearGradient(
+              colors: [
+                AppColors.blue,
+                AppColors.white,
+              ],
+            ),
+            icon: SvgPicture.asset(
+              'assets/svgs/hand-holding-heart-solid.svg',
+              height: 28,
+              width: 28,
+              color: AppColors.blue,
+            ),
+            onTap: () => _navigateToDonations(context),
+          ),
+          const SizedBox(height: 16),
+          DrawerTile(
             title: 'Contact Us',
-            icon: Icons.message_rounded,
+            icon: const Icon(Icons.message_rounded, size: 28),
             onTap: () => _navigateToContactUs(context),
           ),
           const Spacer(),
@@ -63,5 +83,9 @@ class AppDrawer extends StatelessWidget {
 
   void _navigateToExtension(BuildContext context) {
     GoRouter.of(context).pushNamed(ExtensionPage.name);
+  }
+
+  void _navigateToDonations(BuildContext context) {
+    GoRouter.of(context).pushNamed(DonationsPage.name);
   }
 }

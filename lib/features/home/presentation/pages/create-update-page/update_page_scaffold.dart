@@ -20,7 +20,7 @@ class UpdatePageScaffold extends StatelessWidget {
         leading: const CancelButton(),
         leadingWidth: 92,
         centerTitle: true,
-        title: const AppText(text: 'Wealth the word'),
+        title: const AppText(text: 'Enrich the word'),
         actions: const [SaveWordIconButton()],
       ),
       body: const SingleChildScrollView(

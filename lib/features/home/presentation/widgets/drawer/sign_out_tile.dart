@@ -11,8 +11,11 @@ class SignOutTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return DrawerTile(
       title: 'Sign Out',
-      icon: Icons.logout_rounded,
-      iconColor: Colors.red,
+      icon: const Icon(
+        Icons.logout_rounded,
+        size: 28,
+        color: Colors.red,
+      ),
       onTap: () => _signOut(context, ref),
     );
   }

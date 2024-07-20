@@ -43,6 +43,7 @@ class ViewWordPage extends ConsumerWidget {
                 DisplayStatementsBox(),
                 DisplayTagsBox(),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(child: DisplaySynonymsBox()),
                     Expanded(child: DisplayOppositesBox()),
