@@ -16,6 +16,7 @@ import 'package:lexisnap/features/home/presentation/pages/view_word_page.dart';
 import 'package:lexisnap/features/settings/pages/settings_page.dart';
 
 final routerProvider = Provider<AppRouter>((ref) => AppRouter(ref: ref));
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   final Ref _ref;
@@ -31,6 +32,7 @@ class AppRouter {
   GoRouter get router => _router;
 
   late final _router = GoRouter(
+    navigatorKey: navigatorKey,
     initialLocation: SplashScreen.path,
     routes: [
       GoRoute(
@@ -218,7 +220,8 @@ class AppRouter {
     ],
     redirect: (context, state) {
       final go = _ref.watch(afterAuthProvider).value;
-      if (go != state.matchedLocation && _specials.contains(state.matchedLocation)) {
+      if (go != state.matchedLocation &&
+          _specials.contains(state.matchedLocation)) {
         return go;
       }
       return null;

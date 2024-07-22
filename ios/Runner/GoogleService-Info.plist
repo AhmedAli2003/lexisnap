@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>366294231901-1a0jleefumeckgna91e985jamuc1r18q.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDcjQ37YRcfM5TJhzzhLIeo5Qvwz4pB59o</string>
+	<key>GCM_SENDER_ID</key>
+	<string>366294231901</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ackerman.lexisnap</string>
+	<key>PROJECT_ID</key>
+	<string>ecommerece-b4fe8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ecommerece-b4fe8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:366294231901:ios:6142ec78da6631623656b4</string>
+</dict>
+</plist>
