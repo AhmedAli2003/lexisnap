@@ -28,10 +28,9 @@
     <string>LaunchScreen</string>
     <key>UIMainStoryboardFile</key>
     <string>Main</string>
-    <key>UISupportedInterfaceOrientations</key>
     <key>GIDClientID</key>
     <string>366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0.apps.googleusercontent.com</string>
-    
+    <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
       <string>UIInterfaceOrientationLandscapeLeft</string>
@@ -44,6 +43,19 @@
       <string>UIInterfaceOrientationLandscapeLeft</string>
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+    <!-- Google Sign-in Section -->
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0</string>
+        </array>
+      </dict>
+    </array>
+    <!-- End of the Google Sign-in Section -->
     <key>CADisableMinimumFrameDurationOnPhone</key>
     <true/>
     <key>UIApplicationSupportsIndirectInputEvents</key>
