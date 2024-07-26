@@ -116,6 +116,7 @@ class DonationsPage extends StatelessWidget {
                 'assets/svgs/usdt.svg',
                 height: 30,
                 width: 30,
+                // ignore: deprecated_member_use
                 color: const Color(0xFF50a98f),
               ),
               title: Text(
@@ -139,6 +140,7 @@ class DonationsPage extends StatelessWidget {
                 'assets/svgs/usdt.svg',
                 height: 30,
                 width: 30,
+                // ignore: deprecated_member_use
                 color: const Color(0xFF50a98f),
               ),
               title: Text(

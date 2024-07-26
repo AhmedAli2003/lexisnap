@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0.apps.googleusercontent.com</string>
+	<string>374755053213-sao5mc2t9o811qkaio3nquve1vmp7b8d.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0</string>
+	<string>com.googleusercontent.apps.374755053213-sao5mc2t9o811qkaio3nquve1vmp7b8d</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>366294231901-1a0jleefumeckgna91e985jamuc1r18q.apps.googleusercontent.com</string>
+	<string>374755053213-91sk9hqh0letpg2jnn1lin3r4h5d1dq1.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDcjQ37YRcfM5TJhzzhLIeo5Qvwz4pB59o</string>
+	<string>AIzaSyCe9BP1TTc68ctfMYbkRlnAWkj9wZH-nCA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>366294231901</string>
+	<string>374755053213</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ackerman.lexisnap</string>
+	<string>com.ahmedabuali.lexisnap</string>
 	<key>PROJECT_ID</key>
-	<string>ecommerece-b4fe8</string>
+	<string>lexisnap-application</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ecommerece-b4fe8.appspot.com</string>
+	<string>lexisnap-application.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:366294231901:ios:6142ec78da6631623656b4</string>
+	<string>1:374755053213:ios:9bf1f55eff41ab742c0e74</string>
 </dict>
 </plist>

@@ -51,6 +51,7 @@ class AppDrawer extends StatelessWidget {
               'assets/svgs/hand-holding-heart-solid.svg',
               height: 28,
               width: 28,
+              // ignore: deprecated_member_use
               color: AppColors.blue,
             ),
             onTap: () => _navigateToDonations(context),

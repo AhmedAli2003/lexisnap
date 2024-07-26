@@ -1,48 +1,48 @@
 {
   "project_info": {
-    "project_number": "366294231901",
-    "project_id": "ecommerece-b4fe8",
-    "storage_bucket": "ecommerece-b4fe8.appspot.com"
+    "project_number": "374755053213",
+    "project_id": "lexisnap-application",
+    "storage_bucket": "lexisnap-application.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:366294231901:android:ec92e56f5ed9cb623656b4",
+        "mobilesdk_app_id": "1:374755053213:android:e088442bd19ca36f2c0e74",
         "android_client_info": {
-          "package_name": "com.ackerman.lexisnap"
+          "package_name": "com.ahmedabuali.lexisnap"
         }
       },
       "oauth_client": [
         {
-          "client_id": "366294231901-1a0jleefumeckgna91e985jamuc1r18q.apps.googleusercontent.com",
+          "client_id": "374755053213-91sk9hqh0letpg2jnn1lin3r4h5d1dq1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.ackerman.lexisnap",
+            "package_name": "com.ahmedabuali.lexisnap",
             "certificate_hash": "4228cd3b10708179d561d966300f67db51707b94"
           }
         },
         {
-          "client_id": "366294231901-ecb07m7eb6hporp4i9sgstdg8pmfe6mu.apps.googleusercontent.com",
+          "client_id": "374755053213-o982arskfdv8pbtgkpkdk3gj7fmbpaaa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA6Ldth7AtinyDI8aOn9A3Q1DV-rau5-24"
+          "current_key": "AIzaSyBgvnkTP1kRBk2YCOWTxATi6pTJSslSFBQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "366294231901-ecb07m7eb6hporp4i9sgstdg8pmfe6mu.apps.googleusercontent.com",
+              "client_id": "374755053213-o982arskfdv8pbtgkpkdk3gj7fmbpaaa.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0.apps.googleusercontent.com",
+              "client_id": "374755053213-sao5mc2t9o811qkaio3nquve1vmp7b8d.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ackerman.lexisnap"
+                "bundle_id": "com.ahmedabuali.lexisnap"
               }
             }
           ]

@@ -1,4 +1,4 @@
-package com.ackerman.lexisnap
+package com.ahmedabuali.lexisnap
 
 import io.flutter.embedding.android.FlutterActivity
 

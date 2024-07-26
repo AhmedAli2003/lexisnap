@@ -29,7 +29,7 @@
     <key>UIMainStoryboardFile</key>
     <string>Main</string>
     <key>GIDClientID</key>
-    <string>366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0.apps.googleusercontent.com</string>
+    <string>374755053213-sao5mc2t9o811qkaio3nquve1vmp7b8d.apps.googleusercontent.com</string>
     <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
@@ -51,7 +51,7 @@
         <string>Editor</string>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.googleusercontent.apps.366294231901-3ojsbukiekbs270a7ufkdspqf0eolfh0</string>
+          <string>com.googleusercontent.apps.374755053213-sao5mc2t9o811qkaio3nquve1vmp7b8d</string>
         </array>
       </dict>
     </array>
