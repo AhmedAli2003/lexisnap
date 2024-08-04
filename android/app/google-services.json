@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "374755053213-2jts5b4li5cuut127jv6v94cfi94o5kg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ahmedabuali.lexisnap",
+            "certificate_hash": "f02e1e32492e3e59fb43eb32d6ddf892488fdc17"
+          }
+        },
+        {
           "client_id": "374755053213-91sk9hqh0letpg2jnn1lin3r4h5d1dq1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

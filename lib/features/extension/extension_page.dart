@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:lexisnap/core/shared/ui_actions.dart';
 import 'package:lexisnap/core/shared/widgets.dart';
 import 'package:lexisnap/core/theme/text-styles/roboto.dart';
 import 'package:lexisnap/features/extension/text.dart';
@@ -214,9 +216,28 @@ class ExtensionPage extends StatelessWidget {
                 ],
               ),
             ),
-            const Center(
-              child: FlutterLogo(size: 128),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Text('Copy the extension URL', style: roboto(fontWeight: FontWeight.bold)),
+                IconButton(
+                  onPressed: () {
+                    Clipboard.setData(
+                      const ClipboardData(
+                        text: 'https://chromewebstore.google.com/detail/lexisnap/kfnkbfgapkdjiihkeikdmoeffhhpikkm',
+                      ),
+                    );
+                    showSnackBar(context, 'Extension URL copied');
+                  },
+                  icon: const Icon(Icons.copy_rounded),
+                ),
+              ],
             ),
+            const SizedBox(height: 12),
+            Center(
+              child: Image.asset('assets/images/extension/install.png'),
+            ),
+            const SizedBox(height: 12),
             Align(
               alignment: Alignment.centerRight,
               child: RichText(

@@ -24,7 +24,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       final user = ref.read(authStateChangeProvider).value;
       if (user != null) {
         await ref.read(authControllerProvider.notifier).getUserFromBackend(context, user);
-        Future.delayed(Duration.zero, () async {
+        Future.delayed(Duration.zero, () {
           ref.read(wordControllerProvider.notifier).getAllWords(context, 1);
           ref.read(wordControllerProvider.notifier).getWordsOverview(context);
           ref.read(tagControllerProvider.notifier).getAllTags(context, 1);
